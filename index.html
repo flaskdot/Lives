@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #1a0507; /* عنابي مخملي داكن */
-            --accent-warm: #8d3e45; /* وردي خشبي غامق */
-            --gold-soft: #d4af37; /* ذهبي ملكي */
+            --bg-dark: #1a0507; 
+            --accent-warm: #8d3e45; 
+            --gold-soft: #d4af37; 
             --text-light: #f3e5e5;
         }
 
@@ -31,23 +31,16 @@
             text-align: center;
         }
 
-        /* صورة الملف الشخصي */
         .profile-img {
-            width: 120px;
-            height: 120px;
+            width: 120px; height: 120px;
             border-radius: 50%;
             border: 2px solid var(--gold-soft);
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
             margin-bottom: 15px;
         }
 
-        h1 {
-            color: var(--gold-soft);
-            font-size: 1.6rem;
-            margin-bottom: 10px;
-        }
+        h1 { color: var(--gold-soft); font-size: 1.6rem; margin-bottom: 10px; }
 
-        /* الوصف الزجاجي */
         .bio {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
@@ -55,75 +48,66 @@
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.95rem;
-            margin-bottom: 30px;
-            line-height: 1.6;
+            margin-bottom: 25px;
         }
 
-        /* الأزرار */
         .btn-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .main-btn {
             width: 100%;
-            padding: 18px;
+            padding: 16px;
             border-radius: 12px;
             border: none;
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             text-decoration: none;
-            transition: all 0.3s ease;
+            color: white;
+            transition: 0.3s;
             position: relative;
             overflow: hidden;
         }
 
-        /* زر اللايف */
-        .btn-live {
-            background: linear-gradient(45deg, #b71c1c, #880e4f);
+        .btn-live { background: linear-gradient(45deg, #b71c1c, #880e4f); }
+        .btn-private { background: var(--accent-warm); border: 1px solid rgba(255,255,255,0.1); }
+        .btn-photos { background: #5d2a2e; border: 1px solid rgba(255,255,255,0.1); }
+
+        .main-btn:active { transform: scale(0.97); }
+
+        /* أيقونات التواصل الاجتماعي */
+        .social-icons {
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-icons a {
+            color: var(--gold-soft);
+            font-size: 1.8rem;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
             color: white;
-            box-shadow: 0 4px 15px rgba(183, 28, 28, 0.3);
+            transform: translateY(-5px);
         }
 
-        /* زر الفيديوهات */
-        .btn-private {
-            background: var(--accent-warm);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .main-btn:active {
-            transform: scale(0.97);
-        }
-
-        /* تأثير اللمعة الهادئة */
-        .main-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
-            transform: rotate(45deg);
-            animation: shine 4s infinite;
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        /* شبكة الفيديوهات المقفولة */
+        /* شبكة الفيديوهات */
         .video-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 25px;
+            gap: 10px;
+            margin-top: 20px;
             display: none;
         }
 
@@ -142,89 +126,64 @@
         }
 
         .lock-overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
             background: rgba(0,0,0,0.4);
         }
 
-        .lock-overlay i {
-            font-size: 1.8rem;
-            color: var(--gold-soft);
-            margin-bottom: 8px;
-        }
+        .lock-overlay i { font-size: 1.5rem; color: var(--gold-soft); margin-bottom: 5px; }
+        .lock-overlay span { font-size: 0.65rem; color: #ffcdd2; }
 
-        .lock-overlay span {
-            font-size: 0.7rem;
-            color: #ffcdd2;
-            letter-spacing: 1px;
-        }
-
-        .footer-note {
-            margin-top: 40px;
-            font-size: 0.8rem;
-            color: var(--gold-soft);
-            opacity: 0.6;
-        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <img src="https://via.placeholder.com/150/4a1414/d4af37?text=Heba+&+Ahmed" alt="هبة وأحمد" class="profile-img">
+        <img src="https://via.placeholder.com/150/4a1414/d4af37?text=H&A" class="profile-img">
         <h1>هبة وأحمد من غزة</h1>
         <div class="bio">
-            نحن زوجين من غزة، نشارككم لحظاتنا ويومياتنا.. 🇵🇸<br>
-            يوجد هنا محتوانا الخاص والبث المباشر.
+            نحن زوجين من غزة، نشارككم لحظاتنا ويومياتنا.. 🇵🇸
         </div>
     </div>
 
     <div class="btn-container">
         <a href="#" class="main-btn btn-live">
-            <i class="fas fa-video"></i> انضموا للبث المباشر (LIVE)
+            <i class="fas fa-video"></i> دخول البث المباشر (LIVE)
         </a>
 
         <button class="main-btn btn-private" onclick="toggleVideos()">
-            <i class="fas fa-lock"></i> فيديوهاتي الخاصة (مقفول)
+            <i class="fas fa-lock"></i> فيديوهاتي الخاصة
+        </button>
+
+        <button class="main-btn btn-photos" onclick="alert('هذا القسم مقفل حالياً')">
+            <i class="fas fa-images"></i> صوري الخاصة (مقفول)
         </button>
     </div>
 
     <div class="video-grid" id="videoGrid">
         <div class="video-card">
-            <img src="https://via.placeholder.com/300x500">
-            <div class="lock-overlay">
-                <i class="fas fa-lock"></i>
-                <span>محتوى حساس</span>
-            </div>
+            <img src="https://via.placeholder.com/300x500"><div class="lock-overlay"><i class="fas fa-lock"></i><span>محتوى حساس</span></div>
         </div>
         <div class="video-card">
-            <img src="https://via.placeholder.com/300x500">
-            <div class="lock-overlay">
-                <i class="fas fa-lock"></i>
-                <span>محتوى حساس</span>
-            </div>
+            <img src="https://via.placeholder.com/300x500"><div class="lock-overlay"><i class="fas fa-lock"></i><span>محتوى حساس</span></div>
         </div>
         <div class="video-card">
-            <img src="https://via.placeholder.com/300x500">
-            <div class="lock-overlay">
-                <i class="fas fa-lock"></i>
-                <span>محتوى حساس</span>
-            </div>
+            <img src="https://via.placeholder.com/300x500"><div class="lock-overlay"><i class="fas fa-lock"></i><span>محتوى حساس</span></div>
         </div>
         <div class="video-card">
-            <img src="https://via.placeholder.com/300x500">
-            <div class="lock-overlay">
-                <i class="fas fa-lock"></i>
-                <span>محتوى حساس</span>
-            </div>
+            <img src="https://via.placeholder.com/300x500"><div class="lock-overlay"><i class="fas fa-lock"></i><span>محتوى حساس</span></div>
         </div>
     </div>
 
-    <div class="footer-note">
+    <div class="social-icons">
+        <a href="#" title="Snapchat"><i class="fab fa-snapchat"></i></a>
+        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+    </div>
+
+    <div style="margin-top: 30px; font-size: 0.7rem; opacity: 0.5;">
         <i class="fas fa-heart"></i> شكراً لدعمكم المستمر
     </div>
 </div>
@@ -232,12 +191,8 @@
 <script>
     function toggleVideos() {
         var grid = document.getElementById("videoGrid");
-        if (grid.style.display === "grid") {
-            grid.style.display = "none";
-        } else {
-            grid.style.display = "grid";
-            grid.scrollIntoView({ behavior: 'smooth' });
-        }
+        grid.style.display = (grid.style.display === "grid") ? "none" : "grid";
+        if(grid.style.display === "grid") grid.scrollIntoView({ behavior: 'smooth' });
     }
 </script>
 
