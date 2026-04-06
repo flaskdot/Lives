@@ -83,7 +83,6 @@
             text-align: center; width: 90%; max-width: 360px;
         }
 
-        /* شبكة المقابلات والفئات */
         .interview-categories { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
         .cat-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--soft-pink); color: white; padding: 12px; border-radius: 12px; cursor: pointer; }
 
@@ -101,7 +100,6 @@
 
         .social-icons { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
         .social-icons a { color: var(--gold-glow); font-size: 2rem; cursor: pointer; transition: 0.3s; }
-        .social-icons a:hover { color: var(--soft-pink); transform: translateY(-5px); }
     </style>
 </head>
 <body>
@@ -210,7 +208,6 @@
         const otherId = (id === 'videoGrid') ? 'photoGrid' : 'videoGrid';
         document.getElementById(otherId).style.display = 'none';
         el.style.display = (el.style.display === 'grid') ? 'none' : 'grid';
-        if(el.style.display === 'grid') el.scrollIntoView({ behavior: 'smooth' });
     }
 
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
@@ -231,7 +228,7 @@
         document.getElementById('interviewForm').style.display = 'none';
     }
 
-    // إرسال الفورم بدون مغادرة الصفحة
+    // الإرسال البرمجي لمنع خروج المستخدم من الموقع
     var form = document.getElementById("interviewForm");
     form.onsubmit = function(e) {
         e.preventDefault();
@@ -245,7 +242,7 @@
                 alert("تم الإرسال بنجاح! سنتواصل معك فور وصول الرسالة.");
                 form.reset();
                 closeModal('interviewModal');
-            } else { alert("حدث خطأ، حاول مجدداً."); }
+            } else { alert("حدث خطأ بسيط، يرجى المحاولة مرة أخرى."); }
         });
     };
 
