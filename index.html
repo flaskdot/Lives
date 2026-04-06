@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --bg-feminine: #1a080a; /* عنابي داكن جداً */
-            --soft-pink: #d81b60; /* وردي قوي ونبيل */
-            --plum-deep: #4a148c; /* موف عميق */
-            --gold-glow: #f4cf8d; /* ذهبي ناعم */
+            --bg-feminine: #1a080a;
+            --soft-pink: #d81b60;
+            --plum-deep: #4a148c;
+            --gold-glow: #f4cf8d;
             --text-color: #fce4ec;
         }
 
@@ -22,7 +22,6 @@
             cursor: crosshair;
         }
 
-        /* لمسة فنية: هالة تتبع الماوس */
         #cursor-glow {
             position: fixed; top: 0; left: 0; width: 400px; height: 400px;
             background: radial-gradient(circle, rgba(216, 27, 96, 0.15) 0%, transparent 70%);
@@ -36,11 +35,19 @@
             box-shadow: 0 0 20px rgba(216, 27, 96, 0.3); margin-bottom: 12px;
         }
 
-        h1 { color: var(--gold-glow); font-size: 1.6rem; margin: 0 0 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        h1 { color: var(--gold-glow); font-size: 1.6rem; margin: 0 0 10px; }
 
         .btn-sub-code {
             background: rgba(255,255,255,0.05); color: var(--gold-glow); border: 1px solid var(--soft-pink);
-            padding: 8px 20px; border-radius: 30px; cursor: pointer; margin-bottom: 20px; transition: 0.3s;
+            padding: 8px 20px; border-radius: 30px; cursor: pointer; margin-bottom: 10px; transition: 0.3s;
+        }
+
+        /* زر قائمة الاشتراكات الجديد */
+        .btn-price-list {
+            background: linear-gradient(45deg, #f4cf8d, #d4af37); color: #1a080a;
+            border: none; padding: 10px 25px; border-radius: 30px; cursor: pointer;
+            font-weight: bold; margin-bottom: 20px; display: block; width: 80%; margin-left: auto; margin-right: auto;
+            box-shadow: 0 4px 15px rgba(244, 207, 141, 0.3);
         }
 
         .bio-container {
@@ -61,9 +68,7 @@
         .btn-private { background: #5a1217; }
         .btn-photos { background: #3e0e11; }
 
-        .main-btn:hover { transform: scale(1.02); filter: brightness(1.2); }
-
-        /* شبكة المحتوى الموحدة */
+        /* الجداول والقوائم */
         .unified-grid {
             display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px;
             margin-top: 15px; display: none; padding: 10px 0;
@@ -71,44 +76,40 @@
 
         .grid-item {
             aspect-ratio: 1/1; background: #000; border-radius: 6px;
-            position: relative; overflow: visible; /* للسماح بالتكبير */
-            border: 1px solid rgba(216, 27, 96, 0.2); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer; z-index: 1;
+            position: relative; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer; z-index: 1; border: 1px solid rgba(216, 27, 96, 0.2);
         }
 
-        /* اللمسة الفنية: التكبير بنصف الحجم عند مرور الماوس */
-        .grid-item:hover {
-            transform: scale(1.5); /* يكبر بنسبة 50% */
-            z-index: 100;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            border-color: var(--gold-glow);
+        .grid-item:hover { transform: scale(1.5); z-index: 100; border-color: var(--gold-glow); }
+
+        .grid-item img { width: 100%; height: 100%; object-fit: cover; filter: blur(8px); opacity: 0.4; border-radius: 6px; }
+
+        .item-lock { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; color: var(--gold-glow); font-size: 0.7rem; }
+
+        /* مودال قائمة الأسعار */
+        .price-table {
+            width: 100%; border-collapse: collapse; margin-top: 15px; color: white;
         }
 
-        .grid-item img { width: 100%; height: 100%; object-fit: cover; filter: blur(10px); opacity: 0.4; border-radius: 6px; }
-
-        .item-lock {
-            position: absolute; inset: 0; display: flex; justify-content: center;
-            align-items: center; color: var(--gold-glow); font-size: 0.8rem;
+        .price-table th, .price-table td {
+            border: 1px solid rgba(216, 27, 96, 0.3); padding: 12px 8px; text-align: center; font-size: 0.85rem;
         }
 
-        .social-icons { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
-        .social-icons a { color: var(--gold-glow); font-size: 2rem; transition: 0.3s; cursor: pointer; }
-        .social-icons a:hover { color: var(--soft-pink); transform: translateY(-5px); }
+        .price-table th { background-color: var(--soft-pink); color: white; }
+        .price-table td:last-child { color: var(--gold-glow); font-weight: bold; }
 
-        /* نافذة الرمز */
+        /* المودال العام */
         .modal {
             display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9);
             backdrop-filter: blur(8px); z-index: 3000; justify-content: center; align-items: center;
         }
         .modal-content {
-            background: #2a0a0d; padding: 30px; border-radius: 25px; border: 1px solid var(--soft-pink);
-            text-align: center; width: 85%; max-width: 320px; box-shadow: 0 0 30px rgba(216, 27, 96, 0.2);
+            background: #2a0a0d; padding: 25px; border-radius: 25px; border: 1px solid var(--soft-pink);
+            text-align: center; width: 90%; max-width: 350px;
         }
 
-        .modal-input {
-            width: 100%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 1px solid var(--soft-pink);
-            background: rgba(0,0,0,0.3); color: white; text-align: center;
-        }
+        .social-icons { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
+        .social-icons a { color: var(--gold-glow); font-size: 2rem; cursor: pointer; transition: 0.3s; }
     </style>
 </head>
 <body>
@@ -119,7 +120,11 @@
     <div class="header">
         <img src="https://via.placeholder.com/150/4a1414/d81b60?text=H&A" class="profile-img">
         <h1>هبة وأحمد من غزة</h1>
-        <button class="btn-sub-code" onclick="openSubModal()"> <i class="fas fa-magic"></i> رمز الاشتراك </button>
+        
+        <button class="btn-sub-code" onclick="openModal('subModal')"> <i class="fas fa-key"></i> رمز الاشتراك </button>
+        
+        <button class="btn-price-list" onclick="openModal('priceModal')"> <i class="fas fa-list-ul"></i> قائمة الاشتراكات </button>
+
         <div class="bio-container">
             <p style="font-size: 0.9rem; margin: 0;">نحن زوجين من غزة، نشارككم لحظاتنا ويومياتنا بكل حب.. 🇵🇸</p>
             <small style="color: var(--gold-glow); font-size: 0.75rem; opacity: 0.7;">للاشتراك التواصل عبر تويتر بالأسفل</small>
@@ -127,34 +132,48 @@
     </div>
 
     <div class="btn-container">
-        <button class="main-btn btn-live" onclick="alert('سنكون متواجدين قريباً')"> 
-            <i class="fas fa-broadcast-tower"></i> دخول البث المباشر (LIVE) 
-        </button>
-        
-        <button class="main-btn btn-private" onclick="toggleSection('videoGrid')"> 
-            <i class="fas fa-video"></i> فيديوهاتي الخاصة (7) 
-        </button>
-        
-        <button class="main-btn btn-photos" onclick="toggleSection('photoGrid')"> 
-            <i class="fas fa-camera-retro"></i> صوري الخاصة 
-        </button>
+        <button class="main-btn btn-live" onclick="alert('سنكون متواجدين قريباً')"> <i class="fas fa-broadcast-tower"></i> دخول البث المباشر (LIVE) </button>
+        <button class="main-btn btn-private" onclick="toggleSection('videoGrid')"> <i class="fas fa-video"></i> فيديوهاتي الخاصة (7) </button>
+        <button class="main-btn btn-photos" onclick="toggleSection('photoGrid')"> <i class="fas fa-camera-retro"></i> صوري الخاصة </button>
     </div>
 
     <div class="unified-grid" id="videoGrid"></div>
     <div class="unified-grid" id="photoGrid"></div>
 
     <div class="social-icons">
-        <a onclick="requireSub()"><i class="fab fa-snapchat"></i></a>
-        <a onclick="requireSub()"><i class="fab fa-instagram"></i></a>
+        <a onclick="alert('يجب الاشتراك للوصول لمحتوانا الحصري')"><i class="fab fa-snapchat"></i></a>
+        <a onclick="alert('يجب الاشتراك للوصول لمحتوانا الحصري')"><i class="fab fa-instagram"></i></a>
         <a href="https://x.com/your_twitter" target="_blank"><i class="fab fa-x-twitter"></i></a>
     </div>
 </div>
 
-<div id="subModal" class="modal" onclick="this.style.display='none'">
+<div id="priceModal" class="modal" onclick="closeModal('priceModal')">
     <div class="modal-content" onclick="event.stopPropagation()">
-        <h3 style="color:var(--gold-glow); margin:0;">تفعيل الاشتراك الحصري</h3>
-        <p style="font-size:0.85rem; color:#d1b8b8;">ادخل الرمز لفتح عالمنا الخاص</p>
-        <input type="text" id="codeInput" class="modal-input" placeholder="اكتب الرمز هنا...">
+        <h3 style="color:var(--gold-glow); margin:0;">قائمة الاشتراكات</h3>
+        <table class="price-table">
+            <thead>
+                <tr>
+                    <th>نوع الاشتراك</th>
+                    <th>سعر الاشتراك</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>للاشتراك بالموقع كامل</td><td>300$</td></tr>
+                <tr><td>للاشتراك باللايف فقط</td><td>300$</td></tr>
+                <tr><td>للاشتراك بالفيديوهات فقط</td><td>250$</td></tr>
+                <tr><td>للاشتراك بالصور فقط</td><td>200$</td></tr>
+                <tr><td>الموقع كامل + التحميل</td><td>400$</td></tr>
+                <tr><td>سناب شات الخاص</td><td>200$</td></tr>
+            </tbody>
+        </table>
+        <button class="btn-live" onclick="closeModal('priceModal')" style="width:100%; padding:10px; border-radius:10px; margin-top:15px; border:none; color:white; font-weight:bold; cursor:pointer;">إغلاق</button>
+    </div>
+</div>
+
+<div id="subModal" class="modal" onclick="closeModal('subModal')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <h3 style="color:var(--gold-glow);">تفعيل الاشتراك</h3>
+        <input type="text" id="codeInput" style="width:100%; padding:12px; margin-bottom:15px; border-radius:10px; border:1px solid var(--soft-pink); background:rgba(0,0,0,0.3); color:white; text-align:center;" placeholder="اكتب الرمز هنا...">
         <button class="btn-live" onclick="checkCode()" style="width:100%; padding:12px; border-radius:10px; border:none; color:white; font-weight:bold; cursor:pointer;">دخول</button>
     </div>
 </div>
@@ -167,23 +186,18 @@
         glow.style.top = e.clientY + 'px';
     });
 
-    // توليد 22 صورة
-    const pGrid = document.getElementById('photoGrid');
-    for (let i = 1; i <= 22; i++) {
-        const item = document.createElement('div');
-        item.className = 'grid-item';
-        item.innerHTML = `<img src="https://via.placeholder.com/150"><div class="item-lock"><i class="fas fa-lock"></i></div>`;
-        pGrid.appendChild(item);
+    // توليد محتوى
+    function generateGrid(id, count, icon) {
+        const grid = document.getElementById(id);
+        for (let i = 1; i <= count; i++) {
+            const item = document.createElement('div');
+            item.className = 'grid-item';
+            item.innerHTML = `<img src="https://via.placeholder.com/150"><div class="item-lock"><i class="${icon}"></i></div>`;
+            grid.appendChild(item);
+        }
     }
-
-    // توليد 7 فيديوهات فقط
-    const vGrid = document.getElementById('videoGrid');
-    for (let i = 1; i <= 7; i++) {
-        const item = document.createElement('div');
-        item.className = 'grid-item';
-        item.innerHTML = `<img src="https://via.placeholder.com/150"><div class="item-lock"><i class="fas fa-play"></i></div>`;
-        vGrid.appendChild(item);
-    }
+    generateGrid('photoGrid', 22, 'fas fa-lock');
+    generateGrid('videoGrid', 7, 'fas fa-play');
 
     function toggleSection(id) {
         const el = document.getElementById(id);
@@ -192,18 +206,17 @@
         el.style.display = (el.style.display === 'grid') ? 'none' : 'grid';
     }
 
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
     function checkCode() {
         const code = document.getElementById('codeInput').value;
-        if (code !== "GAZA2026") { // يمكنك تغيير الكود الصحيح هنا
+        if (code !== "GAZA2026") {
             alert("لقد ادخلت بيانات خاطئة يجب الحصول على كود الدخول من مالك الصفحة");
         } else {
-            alert("تم التفعيل بنجاح!");
-            location.reload();
+            alert("تم التفعيل!");
         }
     }
-
-    function requireSub() { alert("يجب الاشتراك للوصول لمحتوانا الحصري"); }
-    function openSubModal() { document.getElementById('subModal').style.display = 'flex'; }
 </script>
 
 </body>
