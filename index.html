@@ -7,242 +7,96 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #1f0609; /* عنابي مخملي أنعم */
-            --accent-warm: #9e4a51; /* وردي خشبي ناعم */
-            --gold-soft: #e0b966; /* ذهبي رملي ناعم */
+            --bg-dark: #1f0609;
+            --accent-warm: #9e4a51;
+            --gold-soft: #e0b966;
             --text-light: #f3e5e5;
-            --card-bg: rgba(255, 255, 255, 0.04);
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: radial-gradient(circle at center, #3d1216 0%, #1f0609 100%);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            color: var(--text-light);
-            overflow-x: hidden;
+            margin: 0; padding: 0; display: flex; justify-content: center;
+            min-height: 100vh; color: var(--text-light); overflow-x: hidden;
         }
 
-        .container {
-            width: 100%;
-            max-width: 400px; /* أنحف قليلاً لمظهر أنعم */
-            padding: 50px 25px;
-            text-align: center;
-        }
+        .container { width: 100%; max-width: 420px; padding: 40px 20px; text-align: center; }
 
-        /* رأس الصفحة */
         .profile-img {
-            width: 110px; height: 110px;
-            border-radius: 50%;
-            border: 2px solid var(--gold-soft);
-            box-shadow: 0 0 25px rgba(224, 185, 102, 0.2);
-            margin-bottom: 20px;
-            transition: 0.5s;
+            width: 110px; height: 110px; border-radius: 50%; border: 2px solid var(--gold-soft);
+            box-shadow: 0 0 20px rgba(224, 185, 102, 0.2); margin-bottom: 15px;
         }
 
-        .profile-img:hover { transform: scale(1.05) rotate(3deg); }
+        h1 { color: var(--gold-soft); font-size: 1.6rem; margin: 0 0 10px; }
 
-        h1 { color: var(--gold-soft); font-size: 1.7rem; margin: 0 0 10px; font-weight: 600; }
-
-        /* زر رمز الاشتراك - ناعم */
         .btn-sub-code {
-            background: transparent;
-            color: var(--gold-soft);
-            border: 1px solid var(--gold-soft);
-            padding: 8px 18px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            margin-bottom: 20px;
-            transition: 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            background: transparent; color: var(--gold-soft); border: 1px solid var(--gold-soft);
+            padding: 8px 20px; border-radius: 30px; cursor: pointer; margin-bottom: 20px;
         }
 
-        .btn-sub-code:hover {
-            background: rgba(224, 185, 102, 0.1);
-            transform: translateY(-2px);
-        }
-
-        /* الوصف */
         .bio-container {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-radius: 25px; /* حواف أنعم */
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            margin-bottom: 35px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.04); padding: 20px; border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.08); margin-bottom: 30px;
         }
 
-        .bio-text { font-size: 0.95rem; line-height: 1.6; margin: 0; }
-        .sub-notice { font-size: 0.8rem; color: #bcaaa4; margin-top: 10px; display: block; }
-
-        /* الأزرار الرئيسية */
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
+        .btn-container { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
 
         .main-btn {
-            width: 100%;
-            padding: 18px;
-            border-radius: 20px; /* حواف أنعم */
-            border: none;
-            font-size: 1.05rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            text-decoration: none;
-            color: white;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            width: 100%; padding: 16px; border-radius: 15px; border: none;
+            font-size: 1rem; font-weight: 600; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; gap: 10px;
+            text-decoration: none; color: white; transition: 0.3s;
         }
 
         .btn-live { background: linear-gradient(45deg, #b71c1c, #880e4f); }
-        .btn-private { background: var(--accent-warm); border: 1px solid rgba(255,255,255,0.05); }
-        .btn-photos { background: #5d2a2e; border: 1px solid rgba(255,255,255,0.05); }
+        .btn-private { background: var(--accent-warm); }
+        .btn-photos { background: #5d2a2e; }
 
-        .main-btn:active { transform: scale(0.97); }
-
-        /* تأثير اللمعة الناعمة */
-        .main-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
-            transform: rotate(45deg);
-            animation: shine 5s infinite;
+        /* شبكة الصور - 22 صورة */
+        .photo-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+            margin-top: 20px; display: none;
         }
 
-        @keyframes shine { 0% { left: -100%; } 100% { left: 100%; } }
-
-        /* أيقونات التواصل الاجتماعي */
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .social-icons a {
-            color: var(--gold-soft);
-            font-size: 2rem;
-            transition: 0.3s;
-            text-decoration: none;
-            opacity: 0.8;
-        }
-
-        .social-icons a:hover {
-            color: white;
-            transform: translateY(-5px) scale(1.1);
-            opacity: 1;
-        }
-
-        /* شبكة الفيديوهات */
-        .video-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 30px;
-            display: none;
-        }
-
-        .video-card {
-            background: #000;
-            aspect-ratio: 9/16;
-            border-radius: 15px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(224, 185, 102, 0.1);
-        }
-
-        .video-card img {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: blur(25px); opacity: 0.4;
-        }
-
-        .lock-overlay {
-            position: absolute; inset: 0;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            background: rgba(0,0,0,0.5);
-        }
-
-        .lock-overlay i { font-size: 1.8rem; color: var(--gold-soft); margin-bottom: 8px; }
-        .lock-overlay span { font-size: 0.7rem; color: #ffcdd2; letter-spacing: 1px; }
-
-        /* صندوق الرسالة (المودال) */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-        }
-
-        .modal-content {
-            background: #2a0b10;
-            padding: 30px;
-            border-radius: 25px;
-            border: 1px solid var(--gold-soft);
-            text-align: center;
-            width: 100%;
-            max-width: 320px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            animation: modalFade 0.3s ease;
-        }
-
-        @keyframes modalFade { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .modal h2 { color: var(--gold-soft); font-size: 1.3rem; margin-top: 0; }
-        .modal p { font-size: 0.9rem; color: #d1b8b8; line-height: 1.5; margin-bottom: 20px; }
-        
-        .modal-input {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            color: white;
-            font-size: 1rem;
-            text-align: center;
-            box-sizing: border-box;
-            margin-bottom: 15px;
-        }
-
-        .modal-input:focus { outline: none; border-color: var(--gold-soft); }
-
-        .modal-btn {
-            background: var(--gold-soft);
-            color: #1f0609;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            font-weight: bold;
+        .photo-item {
+            aspect-ratio: 1/1; background: #000; border-radius: 8px;
+            position: relative; overflow: hidden; border: 1px solid rgba(224,185,102,0.1);
             cursor: pointer;
-            transition: 0.3s;
         }
 
-        .modal-btn:hover { background: white; }
-        .close-modal { position: absolute; top: 15px; right: 20px; color: #d1b8b8; cursor: pointer; font-size: 1.2rem; }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; filter: blur(10px); opacity: 0.5; }
 
+        .photo-lock {
+            position: absolute; inset: 0; display: flex; justify-content: center;
+            align-items: center; color: var(--gold-soft); font-size: 1.2rem;
+        }
+
+        /* نافذة تكبير الصورة المقفولة */
+        .full-photo-modal {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+            z-index: 2000; justify-content: center; align-items: center; flex-direction: column;
+        }
+
+        .full-photo-content {
+            width: 80%; max-width: 300px; aspect-ratio: 9/16; background: #2a0b10;
+            border-radius: 20px; border: 2px solid var(--gold-soft); position: relative;
+            display: flex; justify-content: center; align-items: center; overflow: hidden;
+        }
+
+        .full-photo-content img { width: 100%; height: 100%; object-fit: cover; filter: blur(30px); }
+
+        .social-icons { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
+        .social-icons a { color: var(--gold-soft); font-size: 2rem; transition: 0.3s; cursor: pointer; }
+
+        /* صندوق كود الاشتراك */
+        .modal {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px); z-index: 3000; justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: #2a0b10; padding: 30px; border-radius: 25px; border: 1px solid var(--gold-soft);
+            text-align: center; width: 85%; max-width: 320px;
+        }
     </style>
 </head>
 <body>
@@ -251,91 +105,79 @@
     <div class="header">
         <img src="https://via.placeholder.com/150/4a1414/e0b966?text=H&A" class="profile-img">
         <h1>هبة وأحمد من غزة</h1>
-        
-        <button class="btn-sub-code" onclick="openModal()">
-            <i class="fas fa-key"></i> رمز الاشتراك
-        </button>
-        
+        <button class="btn-sub-code" onclick="openSubModal()"> <i class="fas fa-key"></i> رمز الاشتراك </button>
         <div class="bio-container">
-            <p class="bio-text">نحن زوجين من غزة، نشارككم لحظاتنا ويومياتنا بكل حب.. 🇵🇸</p>
-            <span class="sub-notice">للاشتراك التواصل عبر تويتر بالأسفل</span>
+            <p>نحن زوجين من غزة، نشارككم لحظاتنا ويومياتنا بكل حب.. 🇵🇸</p>
+            <small style="color: #bcaaa4;">للاشتراك التواصل عبر تويتر بالأسفل</small>
         </div>
     </div>
 
     <div class="btn-container">
-        <a href="#" class="main-btn btn-live">
-            <i class="fas fa-video"></i> دخول البث المباشر (LIVE)
-        </a>
-
-        <button class="main-btn btn-private" onclick="toggleVideos()">
-            <i class="fas fa-user-lock"></i> فيديوهاتي الخاصة
-        </button>
-
-        <button class="main-btn btn-photos" onclick="alert('هذا القسم مقفل حالياً')">
-            <i class="fas fa-images"></i> صوري الخاصة (مقفول)
-        </button>
+        <a href="#" class="main-btn btn-live"> <i class="fas fa-video"></i> دخول البث المباشر (LIVE) </a>
+        <button class="main-btn btn-private" onclick="toggleSection('videoGrid')"> <i class="fas fa-user-lock"></i> فيديوهاتي الخاصة </button>
+        <button class="main-btn btn-photos" onclick="toggleSection('photoGrid')"> <i class="fas fa-images"></i> صوري الخاصة </button>
     </div>
 
-    <div class="video-grid" id="videoGrid">
-        <div class="video-card">
-            <img src="https://via.placeholder.com/300x500"><div class="lock-overlay"><i class="fas fa-lock"></i><span>محتوى حساس</span></div>
+    <div class="photo-grid" id="photoGrid">
         </div>
-        <div class="video-card">
-            <img src="https://via.placeholder.com/300x500"><div class="lock-overlay"><i class="fas fa-lock"></i><span>محتوى حساس</span></div>
-        </div>
-        <div class="video-card">
-            <img src="https://via.placeholder.com/300x500"><div class="lock-overlay"><i class="fas fa-lock"></i><span>محتوى حساس</span></div>
-        </div>
-        <div class="video-card">
-            <img src="https://via.placeholder.com/300x500"><div class="lock-overlay"><i class="fas fa-lock"></i><span>محتوى حساس</span></div>
-        </div>
+
+    <div class="photo-grid" id="videoGrid" style="grid-template-columns: 1fr 1fr;">
+        <div class="photo-item" style="aspect-ratio: 9/16;"><div class="photo-lock"><i class="fas fa-lock"></i></div></div>
+        <div class="photo-item" style="aspect-ratio: 9/16;"><div class="photo-lock"><i class="fas fa-lock"></i></div></div>
+        <div class="photo-item" style="aspect-ratio: 9/16;"><div class="photo-lock"><i class="fas fa-lock"></i></div></div>
+        <div class="photo-item" style="aspect-ratio: 9/16;"><div class="photo-lock"><i class="fas fa-lock"></i></div></div>
     </div>
 
     <div class="social-icons">
-        <a href="#" title="Snapchat"><i class="fab fa-snapchat"></i></a>
-        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a> </div>
-
-    <div style="margin-top: 40px; font-size: 0.75rem; opacity: 0.4;">
-        <i class="fas fa-heart"></i> شكراً لكونكم جزءاً من عائلتنا
+        <a onclick="requireSub()"><i class="fab fa-snapchat"></i></a>
+        <a onclick="requireSub()"><i class="fab fa-instagram"></i></a>
+        <a href="https://x.com/your_handle" target="_blank"><i class="fab fa-x-twitter"></i></a>
     </div>
 </div>
 
-<div id="subModal" class="modal" onclick="closeModal(event)">
+<div id="photoModal" class="full-photo-modal" onclick="this.style.display='none'">
+    <div class="full-photo-content">
+        <img src="https://via.placeholder.com/300x600" alt="Private">
+        <div style="position:absolute; text-align:center;">
+            <i class="fas fa-lock" style="font-size:3rem; color:var(--gold-soft);"></i>
+            <p style="font-size:0.8rem; margin-top:10px;">محتوى خاص بالمشتركين</p>
+        </div>
+    </div>
+    <p style="margin-top:20px; color:var(--gold-soft);">إضغط للإغلاق</p>
+</div>
+
+<div id="subModal" class="modal" onclick="closeSubModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
-        <span class="close-modal" onclick="closeModal()">×</span>
-        <i class="fas fa-lock-open" style="font-size: 2rem; color: var(--gold-soft); margin-bottom: 15px; display: block;"></i>
-        <h2>افتح المحتوى الحصري</h2>
+        <h2>تفعيل الاشتراك</h2>
         <p>ادخل هنا رمز الاشتراك لفتح القفل والتمتع بالخدمات لدينا</p>
-        <input type="text" class="modal-input" placeholder="ادخل الرمز هنا...">
-        <button class="modal-btn">تفعيل الرمز</button>
+        <input type="text" style="width:100%; padding:10px; margin:15px 0; border-radius:10px; border:none; text-align:center;" placeholder="الرمز...">
+        <button class="btn-live" style="width:100%; padding:10px; border-radius:10px; border:none; color:white; font-weight:bold;">تفعيل</button>
     </div>
 </div>
 
 <script>
-    // دالة فتح وغلق شبكة الفيديوهات
-    function toggleVideos() {
-        var grid = document.getElementById("videoGrid");
-        grid.style.display = (grid.style.display === "grid") ? "none" : "grid";
-        if(grid.style.display === "grid") grid.scrollIntoView({ behavior: 'smooth' });
+    // توليد 22 صورة في الشبكة
+    const grid = document.getElementById('photoGrid');
+    for (let i = 1; i <= 22; i++) {
+        const item = document.createElement('div');
+        item.className = 'photo-item';
+        item.onclick = () => document.getElementById('photoModal').style.display = 'flex';
+        item.innerHTML = `<img src="https://via.placeholder.com/150"><div class="photo-lock"><i class="fas fa-lock"></i></div>`;
+        grid.appendChild(item);
     }
 
-    // دالات فتح وغلق صندوق رمز الاشتراك
-    function openModal() {
-        document.getElementById("subModal").style.display = "flex";
+    function toggleSection(id) {
+        const el = document.getElementById(id);
+        el.style.display = (el.style.display === 'grid') ? 'none' : 'grid';
+        if(el.style.display === 'grid') el.scrollIntoView({ behavior: 'smooth' });
     }
 
-    function closeModal() {
-        document.getElementById("subModal").style.display = "none";
+    function requireSub() {
+        alert("يجب الاشتراك للوصول لمحتوانا الحصري");
     }
 
-    // غلق المودال عند الضغط خارجه
-    window.onclick = function(event) {
-        var modal = document.getElementById("subModal");
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+    function openSubModal() { document.getElementById('subModal').style.display = 'flex'; }
+    function closeSubModal() { document.getElementById('subModal').style.display = 'none'; }
 </script>
 
 </body>
