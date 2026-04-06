@@ -20,31 +20,31 @@
             min-height: 100vh; color: var(--text-light); overflow-x: hidden;
         }
 
-        .container { width: 100%; max-width: 420px; padding: 40px 20px; text-align: center; }
+        .container { width: 100%; max-width: 420px; padding: 40px 15px; text-align: center; }
 
         .profile-img {
-            width: 110px; height: 110px; border-radius: 50%; border: 2px solid var(--gold-soft);
-            box-shadow: 0 0 20px rgba(224, 185, 102, 0.2); margin-bottom: 15px;
+            width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--gold-soft);
+            box-shadow: 0 0 20px rgba(224, 185, 102, 0.2); margin-bottom: 12px;
         }
 
-        h1 { color: var(--gold-soft); font-size: 1.6rem; margin: 0 0 10px; }
+        h1 { color: var(--gold-soft); font-size: 1.5rem; margin: 0 0 8px; }
 
         .btn-sub-code {
             background: transparent; color: var(--gold-soft); border: 1px solid var(--gold-soft);
-            padding: 8px 20px; border-radius: 30px; cursor: pointer; margin-bottom: 20px;
+            padding: 6px 15px; border-radius: 30px; cursor: pointer; margin-bottom: 15px; font-size: 0.8rem;
         }
 
         .bio-container {
-            background: rgba(255,255,255,0.04); padding: 20px; border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.08); margin-bottom: 30px;
+            background: rgba(255,255,255,0.04); padding: 15px; border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.08); margin-bottom: 25px;
         }
 
-        .btn-container { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+        .btn-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 25px; }
 
         .main-btn {
-            width: 100%; padding: 16px; border-radius: 15px; border: none;
-            font-size: 1rem; font-weight: 600; cursor: pointer; display: flex;
-            align-items: center; justify-content: center; gap: 10px;
+            width: 100%; padding: 14px; border-radius: 12px; border: none;
+            font-size: 0.95rem; font-weight: 600; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; gap: 8px;
             text-decoration: none; color: white; transition: 0.3s;
         }
 
@@ -52,50 +52,53 @@
         .btn-private { background: var(--accent-warm); }
         .btn-photos { background: #5d2a2e; }
 
-        /* شبكة الصور - 22 صورة */
-        .photo-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
-            margin-top: 20px; display: none;
+        /* شبكة الصور والفيديوهات الموحدة - 6 في السطر */
+        .unified-grid {
+            display: grid; 
+            grid-template-columns: repeat(6, 1fr); /* 6 مربعات في السطر */
+            gap: 4px; /* مسافة بسيطة جداً لتبدو ناعمة */
+            margin-top: 15px; 
+            display: none;
         }
 
-        .photo-item {
-            aspect-ratio: 1/1; background: #000; border-radius: 8px;
-            position: relative; overflow: hidden; border: 1px solid rgba(224,185,102,0.1);
+        .grid-item {
+            aspect-ratio: 1/1; background: #000; border-radius: 4px;
+            position: relative; overflow: hidden; border: 0.5px solid rgba(224,185,102,0.15);
             cursor: pointer;
         }
 
-        .photo-item img { width: 100%; height: 100%; object-fit: cover; filter: blur(10px); opacity: 0.5; }
+        .grid-item img { width: 100%; height: 100%; object-fit: cover; filter: blur(8px); opacity: 0.4; }
 
-        .photo-lock {
+        .item-lock {
             position: absolute; inset: 0; display: flex; justify-content: center;
-            align-items: center; color: var(--gold-soft); font-size: 1.2rem;
+            align-items: center; color: var(--gold-soft); font-size: 0.7rem;
         }
 
-        /* نافذة تكبير الصورة المقفولة */
-        .full-photo-modal {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+        /* نافذة تكبير المحتوى */
+        .full-view-modal {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95);
             z-index: 2000; justify-content: center; align-items: center; flex-direction: column;
         }
 
-        .full-photo-content {
-            width: 80%; max-width: 300px; aspect-ratio: 9/16; background: #2a0b10;
-            border-radius: 20px; border: 2px solid var(--gold-soft); position: relative;
+        .full-content-box {
+            width: 85%; max-width: 300px; aspect-ratio: 9/16; background: #2a0b10;
+            border-radius: 15px; border: 1px solid var(--gold-soft); position: relative;
             display: flex; justify-content: center; align-items: center; overflow: hidden;
         }
 
-        .full-photo-content img { width: 100%; height: 100%; object-fit: cover; filter: blur(30px); }
+        .full-content-box img { width: 100%; height: 100%; object-fit: cover; filter: blur(25px); }
 
-        .social-icons { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
-        .social-icons a { color: var(--gold-soft); font-size: 2rem; transition: 0.3s; cursor: pointer; }
+        .social-icons { display: flex; justify-content: center; gap: 25px; margin-top: 25px; }
+        .social-icons a { color: var(--gold-soft); font-size: 1.8rem; transition: 0.3s; cursor: pointer; }
 
-        /* صندوق كود الاشتراك */
+        /* نافذة الرمز */
         .modal {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
             backdrop-filter: blur(5px); z-index: 3000; justify-content: center; align-items: center;
         }
         .modal-content {
-            background: #2a0b10; padding: 30px; border-radius: 25px; border: 1px solid var(--gold-soft);
-            text-align: center; width: 85%; max-width: 320px;
+            background: #2a0b10; padding: 25px; border-radius: 20px; border: 1px solid var(--gold-soft);
+            text-align: center; width: 80%; max-width: 300px;
         }
     </style>
 </head>
@@ -107,8 +110,8 @@
         <h1>هبة وأحمد من غزة</h1>
         <button class="btn-sub-code" onclick="openSubModal()"> <i class="fas fa-key"></i> رمز الاشتراك </button>
         <div class="bio-container">
-            <p>نحن زوجين من غزة، نشارككم لحظاتنا ويومياتنا بكل حب.. 🇵🇸</p>
-            <small style="color: #bcaaa4;">للاشتراك التواصل عبر تويتر بالأسفل</small>
+            <p style="font-size: 0.9rem; margin: 0;">نحن زوجين من غزة، نشارككم لحظاتنا ويومياتنا بكل حب.. 🇵🇸</p>
+            <small style="color: #bcaaa4; font-size: 0.75rem;">للاشتراك التواصل عبر تويتر بالأسفل</small>
         </div>
     </div>
 
@@ -118,15 +121,11 @@
         <button class="main-btn btn-photos" onclick="toggleSection('photoGrid')"> <i class="fas fa-images"></i> صوري الخاصة </button>
     </div>
 
-    <div class="photo-grid" id="photoGrid">
+    <div class="unified-grid" id="videoGrid">
         </div>
 
-    <div class="photo-grid" id="videoGrid" style="grid-template-columns: 1fr 1fr;">
-        <div class="photo-item" style="aspect-ratio: 9/16;"><div class="photo-lock"><i class="fas fa-lock"></i></div></div>
-        <div class="photo-item" style="aspect-ratio: 9/16;"><div class="photo-lock"><i class="fas fa-lock"></i></div></div>
-        <div class="photo-item" style="aspect-ratio: 9/16;"><div class="photo-lock"><i class="fas fa-lock"></i></div></div>
-        <div class="photo-item" style="aspect-ratio: 9/16;"><div class="photo-lock"><i class="fas fa-lock"></i></div></div>
-    </div>
+    <div class="unified-grid" id="photoGrid">
+        </div>
 
     <div class="social-icons">
         <a onclick="requireSub()"><i class="fab fa-snapchat"></i></a>
@@ -135,49 +134,56 @@
     </div>
 </div>
 
-<div id="photoModal" class="full-photo-modal" onclick="this.style.display='none'">
-    <div class="full-photo-content">
+<div id="fullViewModal" class="full-view-modal" onclick="this.style.display='none'">
+    <div class="full-content-box">
         <img src="https://via.placeholder.com/300x600" alt="Private">
         <div style="position:absolute; text-align:center;">
-            <i class="fas fa-lock" style="font-size:3rem; color:var(--gold-soft);"></i>
-            <p style="font-size:0.8rem; margin-top:10px;">محتوى خاص بالمشتركين</p>
+            <i class="fas fa-lock" style="font-size:2.5rem; color:var(--gold-soft);"></i>
+            <p style="font-size:0.75rem; margin-top:8px;">محتوى خاص للمشتركين</p>
         </div>
     </div>
-    <p style="margin-top:20px; color:var(--gold-soft);">إضغط للإغلاق</p>
 </div>
 
-<div id="subModal" class="modal" onclick="closeSubModal(event)">
+<div id="subModal" class="modal" onclick="this.style.display='none'">
     <div class="modal-content" onclick="event.stopPropagation()">
-        <h2>تفعيل الاشتراك</h2>
-        <p>ادخل هنا رمز الاشتراك لفتح القفل والتمتع بالخدمات لدينا</p>
-        <input type="text" style="width:100%; padding:10px; margin:15px 0; border-radius:10px; border:none; text-align:center;" placeholder="الرمز...">
-        <button class="btn-live" style="width:100%; padding:10px; border-radius:10px; border:none; color:white; font-weight:bold;">تفعيل</button>
+        <h3 style="color:var(--gold-soft); margin-top:0;">تفعيل الاشتراك</h3>
+        <p style="font-size:0.85rem;">ادخل الرمز لفتح القفل والتمتع بالخدمات</p>
+        <input type="text" style="width:100%; padding:8px; margin:10px 0; border-radius:8px; border:none; text-align:center;" placeholder="الرمز...">
+        <button class="btn-live" style="width:100%; padding:10px; border-radius:8px; border:none; color:white; font-weight:bold; cursor:pointer;">تفعيل</button>
     </div>
 </div>
 
 <script>
-    // توليد 22 صورة في الشبكة
-    const grid = document.getElementById('photoGrid');
+    // توليد 22 صورة
+    const pGrid = document.getElementById('photoGrid');
     for (let i = 1; i <= 22; i++) {
         const item = document.createElement('div');
-        item.className = 'photo-item';
-        item.onclick = () => document.getElementById('photoModal').style.display = 'flex';
-        item.innerHTML = `<img src="https://via.placeholder.com/150"><div class="photo-lock"><i class="fas fa-lock"></i></div>`;
-        grid.appendChild(item);
+        item.className = 'grid-item';
+        item.onclick = () => document.getElementById('fullViewModal').style.display = 'flex';
+        item.innerHTML = `<img src="https://via.placeholder.com/100"><div class="item-lock"><i class="fas fa-lock"></i></div>`;
+        pGrid.appendChild(item);
+    }
+
+    // توليد 12 فيديو (كمثال) بنفس الحجم
+    const vGrid = document.getElementById('videoGrid');
+    for (let i = 1; i <= 12; i++) {
+        const item = document.createElement('div');
+        item.className = 'grid-item';
+        item.onclick = () => document.getElementById('fullViewModal').style.display = 'flex';
+        item.innerHTML = `<img src="https://via.placeholder.com/100"><div class="item-lock"><i class="fas fa-video"></i></div>`;
+        vGrid.appendChild(item);
     }
 
     function toggleSection(id) {
         const el = document.getElementById(id);
+        const otherId = (id === 'videoGrid') ? 'photoGrid' : 'videoGrid';
+        document.getElementById(otherId).style.display = 'none'; // إغلاق القسم الآخر عند فتح واحد
         el.style.display = (el.style.display === 'grid') ? 'none' : 'grid';
         if(el.style.display === 'grid') el.scrollIntoView({ behavior: 'smooth' });
     }
 
-    function requireSub() {
-        alert("يجب الاشتراك للوصول لمحتوانا الحصري");
-    }
-
+    function requireSub() { alert("يجب الاشتراك للوصول لمحتوانا الحصري"); }
     function openSubModal() { document.getElementById('subModal').style.display = 'flex'; }
-    function closeSubModal() { document.getElementById('subModal').style.display = 'none'; }
 </script>
 
 </body>
