@@ -4,136 +4,244 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>هبة وأحمد - غزة</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #1a0507; 
-            --accent-warm: #8d3e45; 
-            --gold-soft: #d4af37; 
+            --bg-dark: #1f0609; /* عنابي مخملي أنعم */
+            --accent-warm: #9e4a51; /* وردي خشبي ناعم */
+            --gold-soft: #e0b966; /* ذهبي رملي ناعم */
             --text-light: #f3e5e5;
+            --card-bg: rgba(255, 255, 255, 0.04);
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: radial-gradient(circle at center, #3d1216 0%, #1a0507 100%);
+            background: radial-gradient(circle at center, #3d1216 0%, #1f0609 100%);
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             min-height: 100vh;
             color: var(--text-light);
+            overflow-x: hidden;
         }
 
         .container {
             width: 100%;
-            max-width: 420px;
-            padding: 40px 20px;
+            max-width: 400px; /* أنحف قليلاً لمظهر أنعم */
+            padding: 50px 25px;
             text-align: center;
         }
 
+        /* رأس الصفحة */
         .profile-img {
-            width: 120px; height: 120px;
+            width: 110px; height: 110px;
             border-radius: 50%;
             border: 2px solid var(--gold-soft);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-            margin-bottom: 15px;
+            box-shadow: 0 0 25px rgba(224, 185, 102, 0.2);
+            margin-bottom: 20px;
+            transition: 0.5s;
         }
 
-        h1 { color: var(--gold-soft); font-size: 1.6rem; margin-bottom: 10px; }
+        .profile-img:hover { transform: scale(1.05) rotate(3deg); }
 
-        .bio {
-            background: rgba(255, 255, 255, 0.05);
+        h1 { color: var(--gold-soft); font-size: 1.7rem; margin: 0 0 10px; font-weight: 600; }
+
+        /* زر رمز الاشتراك - ناعم */
+        .btn-sub-code {
+            background: transparent;
+            color: var(--gold-soft);
+            border: 1px solid var(--gold-soft);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-sub-code:hover {
+            background: rgba(224, 185, 102, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* الوصف */
+        .bio-container {
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
-            padding: 15px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.95rem;
-            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 25px; /* حواف أنعم */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
+        .bio-text { font-size: 0.95rem; line-height: 1.6; margin: 0; }
+        .sub-notice { font-size: 0.8rem; color: #bcaaa4; margin-top: 10px; display: block; }
+
+        /* الأزرار الرئيسية */
         .btn-container {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
+            margin-bottom: 40px;
         }
 
         .main-btn {
             width: 100%;
-            padding: 16px;
-            border-radius: 12px;
+            padding: 18px;
+            border-radius: 20px; /* حواف أنعم */
             border: none;
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             text-decoration: none;
             color: white;
-            transition: 0.3s;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .btn-live { background: linear-gradient(45deg, #b71c1c, #880e4f); }
-        .btn-private { background: var(--accent-warm); border: 1px solid rgba(255,255,255,0.1); }
-        .btn-photos { background: #5d2a2e; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-private { background: var(--accent-warm); border: 1px solid rgba(255,255,255,0.05); }
+        .btn-photos { background: #5d2a2e; border: 1px solid rgba(255,255,255,0.05); }
 
         .main-btn:active { transform: scale(0.97); }
 
+        /* تأثير اللمعة الناعمة */
+        .main-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
+            transform: rotate(45deg);
+            animation: shine 5s infinite;
+        }
+
+        @keyframes shine { 0% { left: -100%; } 100% { left: 100%; } }
+
         /* أيقونات التواصل الاجتماعي */
         .social-icons {
-            margin-top: 35px;
             display: flex;
             justify-content: center;
-            gap: 25px;
+            gap: 30px;
+            margin-top: 20px;
         }
 
         .social-icons a {
             color: var(--gold-soft);
-            font-size: 1.8rem;
+            font-size: 2rem;
             transition: 0.3s;
             text-decoration: none;
+            opacity: 0.8;
         }
 
         .social-icons a:hover {
             color: white;
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.1);
+            opacity: 1;
         }
 
         /* شبكة الفيديوهات */
         .video-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 30px;
             display: none;
         }
 
         .video-card {
             background: #000;
             aspect-ratio: 9/16;
-            border-radius: 12px;
+            border-radius: 15px;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(224, 185, 102, 0.1);
         }
 
         .video-card img {
             width: 100%; height: 100%; object-fit: cover;
-            filter: blur(20px); opacity: 0.5;
+            filter: blur(25px); opacity: 0.4;
         }
 
         .lock-overlay {
             position: absolute; inset: 0;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.5);
         }
 
-        .lock-overlay i { font-size: 1.5rem; color: var(--gold-soft); margin-bottom: 5px; }
-        .lock-overlay span { font-size: 0.65rem; color: #ffcdd2; }
+        .lock-overlay i { font-size: 1.8rem; color: var(--gold-soft); margin-bottom: 8px; }
+        .lock-overlay span { font-size: 0.7rem; color: #ffcdd2; letter-spacing: 1px; }
+
+        /* صندوق الرسالة (المودال) */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #2a0b10;
+            padding: 30px;
+            border-radius: 25px;
+            border: 1px solid var(--gold-soft);
+            text-align: center;
+            width: 100%;
+            max-width: 320px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: modalFade 0.3s ease;
+        }
+
+        @keyframes modalFade { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .modal h2 { color: var(--gold-soft); font-size: 1.3rem; margin-top: 0; }
+        .modal p { font-size: 0.9rem; color: #d1b8b8; line-height: 1.5; margin-bottom: 20px; }
+        
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        .modal-input:focus { outline: none; border-color: var(--gold-soft); }
+
+        .modal-btn {
+            background: var(--gold-soft);
+            color: #1f0609;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .modal-btn:hover { background: white; }
+        .close-modal { position: absolute; top: 15px; right: 20px; color: #d1b8b8; cursor: pointer; font-size: 1.2rem; }
 
     </style>
 </head>
@@ -141,10 +249,16 @@
 
 <div class="container">
     <div class="header">
-        <img src="https://via.placeholder.com/150/4a1414/d4af37?text=H&A" class="profile-img">
+        <img src="https://via.placeholder.com/150/4a1414/e0b966?text=H&A" class="profile-img">
         <h1>هبة وأحمد من غزة</h1>
-        <div class="bio">
-            نحن زوجين من غزة، نشارككم لحظاتنا ويومياتنا.. 🇵🇸
+        
+        <button class="btn-sub-code" onclick="openModal()">
+            <i class="fas fa-key"></i> رمز الاشتراك
+        </button>
+        
+        <div class="bio-container">
+            <p class="bio-text">نحن زوجين من غزة، نشارككم لحظاتنا ويومياتنا بكل حب.. 🇵🇸</p>
+            <span class="sub-notice">للاشتراك التواصل عبر تويتر بالأسفل</span>
         </div>
     </div>
 
@@ -154,7 +268,7 @@
         </a>
 
         <button class="main-btn btn-private" onclick="toggleVideos()">
-            <i class="fas fa-lock"></i> فيديوهاتي الخاصة
+            <i class="fas fa-user-lock"></i> فيديوهاتي الخاصة
         </button>
 
         <button class="main-btn btn-photos" onclick="alert('هذا القسم مقفل حالياً')">
@@ -180,19 +294,47 @@
     <div class="social-icons">
         <a href="#" title="Snapchat"><i class="fab fa-snapchat"></i></a>
         <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-    </div>
+        <a href="#" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a> </div>
 
-    <div style="margin-top: 30px; font-size: 0.7rem; opacity: 0.5;">
-        <i class="fas fa-heart"></i> شكراً لدعمكم المستمر
+    <div style="margin-top: 40px; font-size: 0.75rem; opacity: 0.4;">
+        <i class="fas fa-heart"></i> شكراً لكونكم جزءاً من عائلتنا
+    </div>
+</div>
+
+<div id="subModal" class="modal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <span class="close-modal" onclick="closeModal()">×</span>
+        <i class="fas fa-lock-open" style="font-size: 2rem; color: var(--gold-soft); margin-bottom: 15px; display: block;"></i>
+        <h2>افتح المحتوى الحصري</h2>
+        <p>ادخل هنا رمز الاشتراك لفتح القفل والتمتع بالخدمات لدينا</p>
+        <input type="text" class="modal-input" placeholder="ادخل الرمز هنا...">
+        <button class="modal-btn">تفعيل الرمز</button>
     </div>
 </div>
 
 <script>
+    // دالة فتح وغلق شبكة الفيديوهات
     function toggleVideos() {
         var grid = document.getElementById("videoGrid");
         grid.style.display = (grid.style.display === "grid") ? "none" : "grid";
         if(grid.style.display === "grid") grid.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // دالات فتح وغلق صندوق رمز الاشتراك
+    function openModal() {
+        document.getElementById("subModal").style.display = "flex";
+    }
+
+    function closeModal() {
+        document.getElementById("subModal").style.display = "none";
+    }
+
+    // غلق المودال عند الضغط خارجه
+    window.onclick = function(event) {
+        var modal = document.getElementById("subModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
     }
 </script>
 
