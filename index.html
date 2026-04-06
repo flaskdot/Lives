@@ -22,6 +22,7 @@
             cursor: crosshair;
         }
 
+        /* هالة تتبع الماوس */
         #cursor-glow {
             position: fixed; top: 0; left: 0; width: 400px; height: 400px;
             background: radial-gradient(circle, rgba(216, 27, 96, 0.15) 0%, transparent 70%);
@@ -63,11 +64,11 @@
         }
 
         .btn-live { background: linear-gradient(45deg, var(--soft-pink), var(--plum-deep)); }
-        .btn-interviews { background: #6a1b9a; border: 1px solid var(--gold-glow); } /* زر المقابلات */
+        .btn-interviews { background: #6a1b9a; border: 1px solid var(--gold-glow); }
         .btn-private { background: #5a1217; }
         .btn-photos { background: #3e0e11; }
 
-        /* الجداول */
+        /* الجداول والقوائم */
         .price-table { width: 100%; border-collapse: collapse; margin-top: 15px; color: white; }
         .price-table td { border: 1px solid rgba(216, 27, 96, 0.3); padding: 10px 5px; font-size: 0.8rem; }
         .price-table tr td:last-child { color: var(--gold-glow); font-weight: bold; }
@@ -82,24 +83,25 @@
             text-align: center; width: 90%; max-width: 360px;
         }
 
-        /* أزرار الفئات داخل المقابلات */
+        /* شبكة المقابلات والفئات */
         .interview-categories { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .cat-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--soft-pink); color: white; padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s; }
-        .cat-btn:hover { background: var(--soft-pink); }
+        .cat-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--soft-pink); color: white; padding: 12px; border-radius: 12px; cursor: pointer; }
 
         textarea {
-            width: 100%; height: 100px; margin-top: 15px; border-radius: 10px; border: 1px solid var(--soft-pink);
-            background: rgba(0,0,0,0.4); color: white; padding: 10px; box-sizing: border-box; resize: none;
+            width: 100%; height: 120px; margin-top: 15px; border-radius: 10px; border: 1px solid var(--soft-pink);
+            background: rgba(0,0,0,0.4); color: white; padding: 10px; box-sizing: border-box; resize: none; font-family: inherit;
         }
 
-        /* شبكة الصور واللمسات الفنية */
+        /* شبكة الصور والفيديو واللمسات الفنية */
         .unified-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; margin-top: 15px; display: none; }
         .grid-item { aspect-ratio: 1/1; background: #000; border-radius: 6px; position: relative; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; border: 1px solid rgba(216, 27, 96, 0.2); }
         .grid-item:hover { transform: scale(1.5); z-index: 100; border-color: var(--gold-glow); }
         .grid-item img { width: 100%; height: 100%; object-fit: cover; filter: blur(8px); opacity: 0.4; }
+        .item-lock { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; color: var(--gold-glow); font-size: 0.7rem; }
 
         .social-icons { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
-        .social-icons a { color: var(--gold-glow); font-size: 2rem; cursor: pointer; }
+        .social-icons a { color: var(--gold-glow); font-size: 2rem; cursor: pointer; transition: 0.3s; }
+        .social-icons a:hover { color: var(--soft-pink); transform: translateY(-5px); }
     </style>
 </head>
 <body>
@@ -121,9 +123,7 @@
 
     <div class="btn-container">
         <button class="main-btn btn-live" onclick="alert('سنكون متواجدين قريباً')"> <i class="fas fa-video"></i> دخول البث المباشر (LIVE) </button>
-        
         <button class="main-btn btn-interviews" onclick="openModal('interviewModal')"> <i class="fas fa-microphone-lines"></i> خاص للمقابلات </button>
-        
         <button class="main-btn btn-private" onclick="toggleSection('videoGrid')"> <i class="fas fa-film"></i> فيديوهاتي الخاصة (7) </button>
         <button class="main-btn btn-photos" onclick="toggleSection('photoGrid')"> <i class="fas fa-image"></i> صوري الخاصة </button>
     </div>
@@ -151,9 +151,7 @@
                 <tr><td>سناب شات الخاص</td><td>200$</td></tr>
             </tbody>
         </table>
-        <p style="font-size: 0.8rem; color: #ffab91; margin-top: 15px; font-weight: bold;">
-            للاشتراك يرجى التواصل عبر اكس/تويتر للتحقق من الاشتراك
-        </p>
+        <p style="font-size: 0.75rem; color: #ffab91; margin-top: 15px; font-weight: bold;">للاشتراك يرجى التواصل عبر اكس/تويتر للتحقق من الاشتراك</p>
         <button class="btn-live" onclick="closeModal('priceModal')" style="width:100%; padding:10px; border-radius:10px; margin-top:10px; border:none; color:white; font-weight:bold; cursor:pointer;">إغلاق</button>
     </div>
 </div>
@@ -161,7 +159,7 @@
 <div id="interviewModal" class="modal" onclick="closeModal('interviewModal')">
     <div class="modal-content" onclick="event.stopPropagation()">
         <h3 style="color:var(--gold-glow); margin:0;">خاص للمقابلات</h3>
-        <p style="font-size: 0.75rem; color: #d1b8b8; margin-top: 10px;">يرجى كتابة التفاصيل داخل الصندوق وسنتواصل معك فور وصول الرسالة مع ترك يوزر حسابك وتحديد نوع الحساب</p>
+        <p style="font-size: 0.75rem; color: #d1b8b8; margin-top: 10px;">يرجى كتابة التفاصيل وسنتواصل معك فوراً</p>
         
         <div id="catSelection" class="interview-categories">
             <button class="cat-btn" onclick="showMsgArea('أزواج')">أزواج</button>
@@ -170,12 +168,13 @@
             <button class="cat-btn" onclick="showMsgArea('بنات')">بنات</button>
         </div>
 
-        <div id="msgArea" style="display:none;">
-            <p id="selectedCat" style="color:var(--soft-pink); font-weight:bold; margin-top:10px;"></p>
-            <textarea placeholder="اكتب تفاصيلك، اليوزر الخاص بك، ونوع الحساب هنا..."></textarea>
-            <button class="btn-live" onclick="alert('تم إرسال رسالتك بنجاح!')" style="width:100%; padding:10px; border-radius:10px; border:none; color:white; font-weight:bold; margin-top:10px;">إرسال الآن</button>
-            <button onclick="hideMsgArea()" style="background:none; border:none; color:white; font-size:0.8rem; margin-top:10px; cursor:pointer;">العودة للفئات</button>
-        </div>
+        <form id="interviewForm" action="https://formspree.io/f/xqegwoap" method="POST" style="display:none;">
+            <p id="selectedCatDisplay" style="color:var(--soft-pink); font-weight:bold; margin-top:10px;"></p>
+            <input type="hidden" name="فئة الحساب" id="categoryInput">
+            <textarea name="التفاصيل" placeholder="اكتب تفاصيلك، اليوزر الخاص بك، ونوع الحساب هنا..." required></textarea>
+            <button type="submit" class="main-btn btn-live" style="width:100%; border:none; margin-top:10px;">إرسال الآن</button>
+            <button type="button" onclick="hideMsgArea()" style="background:none; border:none; color:white; font-size:0.8rem; margin-top:10px; cursor:pointer;">العودة للفئات</button>
+        </form>
     </div>
 </div>
 
@@ -211,29 +210,49 @@
         const otherId = (id === 'videoGrid') ? 'photoGrid' : 'videoGrid';
         document.getElementById(otherId).style.display = 'none';
         el.style.display = (el.style.display === 'grid') ? 'none' : 'grid';
+        if(el.style.display === 'grid') el.scrollIntoView({ behavior: 'smooth' });
     }
 
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { 
         document.getElementById(id).style.display = 'none'; 
-        if(id === 'interviewModal') hideMsgArea(); 
+        if(id === 'interviewModal') hideMsgArea();
     }
 
     function showMsgArea(cat) {
         document.getElementById('catSelection').style.display = 'none';
-        document.getElementById('msgArea').style.display = 'block';
-        document.getElementById('selectedCat').innerText = "الفئة المختارة: " + cat;
+        document.getElementById('interviewForm').style.display = 'block';
+        document.getElementById('selectedCatDisplay').innerText = "الفئة: " + cat;
+        document.getElementById('categoryInput').value = cat;
     }
 
     function hideMsgArea() {
         document.getElementById('catSelection').style.display = 'grid';
-        document.getElementById('msgArea').style.display = 'none';
+        document.getElementById('interviewForm').style.display = 'none';
     }
+
+    // إرسال الفورم بدون مغادرة الصفحة
+    var form = document.getElementById("interviewForm");
+    form.onsubmit = function(e) {
+        e.preventDefault();
+        var data = new FormData(form);
+        fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                alert("تم الإرسال بنجاح! سنتواصل معك فور وصول الرسالة.");
+                form.reset();
+                closeModal('interviewModal');
+            } else { alert("حدث خطأ، حاول مجدداً."); }
+        });
+    };
 
     function checkCode() {
         if (document.getElementById('codeInput').value !== "GAZA2026") {
             alert("لقد ادخلت بيانات خاطئة يجب الحصول على كود الدخول من مالك الصفحة");
-        } else { alert("تم التفعيل!"); }
+        } else { alert("تم التفعيل بنجاح!"); }
     }
 </script>
 
