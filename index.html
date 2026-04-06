@@ -3,223 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هبة وأحمد من غزة</title>
+    <title>هبة وأحمد - غزة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            /* لوحة ألوان دافئة وداكنة */
-            --bg-dark: #2c0b0e; /* أحمر داكن جداً (عنابي مخملي) */
-            --accent-warm: #8d3e45; /* وردي خشبي غامق */
-            --gold-soft: #c5a059; /* ذهبي هادئ للأزرار */
+            --bg-dark: #1a0507;
+            --accent-warm: #8d3e45;
+            --gold-soft: #d4af37;
             --text-light: #f3e5e5;
-            --card-bg: rgba(255, 255, 255, 0.05);
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-dark);
-            background-image: linear-gradient(180deg, #3d1216 0%, #1a0507 100%);
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
+            overflow-x: hidden;
             color: var(--text-light);
+        }
+
+        /* إضافة تأثير النجوم في الخلفية */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #3d1216 0%, #1a0507 100%);
         }
 
         .container {
             width: 100%;
             max-width: 450px;
-            padding: 30px 20px;
+            margin: auto;
+            padding: 40px 20px;
             text-align: center;
-        }
-
-        /* رأس الصفحة */
-        .header {
-            margin-bottom: 40px;
+            min-height: 100vh;
         }
 
         .profile-img {
-            width: 130px;
-            height: 130px;
+            width: 130px; height: 130px;
             border-radius: 50%;
-            border: 3px solid var(--gold-soft);
-            padding: 5px;
-            object-fit: cover;
-            box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+            border: 2px solid var(--gold-soft);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+            transition: 0.5s;
         }
 
-        h1 {
-            font-size: 1.6rem;
-            margin: 20px 0 10px;
-            color: var(--gold-soft);
-            letter-spacing: 1px;
-        }
+        .profile-img:hover { transform: rotate(5deg) scale(1.05); }
 
+        h1 { color: var(--gold-soft); margin-top: 20px; font-size: 1.8rem; }
+
+        /* صندوق الوصف الزجاجي */
         .bio {
-            font-size: 0.95rem;
-            color: #d1b8b8;
-            line-height: 1.6;
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 20px 0;
         }
 
-        /* الأزرار */
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            margin-top: 30px;
+        /* زر اللايف مع عداد وهمي */
+        .live-wrapper { position: relative; }
+        
+        .live-count {
+            position: absolute;
+            top: -10px; left: 10px;
+            background: #ff4d4d;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: bold;
+            z-index: 10;
         }
 
         .main-btn {
+            width: 100%;
             background: var(--accent-warm);
             color: white;
-            border: 1px solid rgba(255,255,255,0.1);
             padding: 18px;
-            border-radius: 12px;
+            border-radius: 15px;
+            border: none;
             font-size: 1.1rem;
-            font-weight: 500;
+            margin-bottom: 15px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
         }
 
-        .main-btn:active {
-            transform: scale(0.98);
+        /* تأثير اللمعة التي تمر على الزر */
+        .main-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
         }
 
-        .btn-live {
-            background: linear-gradient(45deg, #b71c1c, #880e4f);
-            border: 1px solid #ff5252;
-            animation: pulse 2s infinite;
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(183, 28, 28, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(183, 28, 28, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(183, 28, 28, 0); }
-        }
+        .btn-live { background: linear-gradient(90deg, #c62828, #ad1457); font-weight: bold; }
 
-        /* فيديوهات حساسة */
+        /* فيديوهات خاصة */
         .video-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 15px;
             margin-top: 25px;
-            display: none; /* تظهر عند الضغط */
+            display: none;
         }
 
-        .video-item {
+        .video-card {
+            background: #000;
+            border-radius: 15px;
+            height: 220px;
             position: relative;
-            aspect-ratio: 9/14;
-            background: #1a0507;
-            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        .video-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: blur(15px) brightness(0.5); /* تعتيم وغباش قوي */
+        .video-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: blur(15px); opacity: 0.6;
         }
 
-        .lock-overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0,0,0,0.4);
+        .lock-content {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
         }
 
-        .lock-overlay i {
-            font-size: 1.8rem;
-            color: var(--gold-soft);
-            margin-bottom: 8px;
-        }
+        .lock-content i { font-size: 2rem; color: var(--gold-soft); margin-bottom: 10px; }
 
-        .lock-overlay span {
-            font-size: 0.75rem;
-            color: #ffcdd2;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
+        /* زر "دعم القناة" إضافة من عندي */
+        .support-text { margin-top: 30px; font-size: 0.8rem; color: var(--gold-soft); opacity: 0.8; }
 
     </style>
 </head>
 <body>
 
+<div class="stars-container"></div>
+
 <div class="container">
     <div class="header">
-        <img src="https://via.placeholder.com/150/4a1414/ffffff?text=Heba+&+Ahmed" alt="هبة وأحمد" class="profile-img">
+        <img src="https://via.placeholder.com/150/4a1414/d4af37?text=Heba+&+Ahmed" class="profile-img">
         <h1>هبة وأحمد من غزة</h1>
         <div class="bio">
-            نحن زوجين من غزة، نشارككم لحظاتنا ويومياتنا.. 🇵🇸<br>
-            دعمكم لنا هو سر استمرارنا.
+            <p>نحن زوجين من غزة، نشارككم لحظاتنا ويومياتنا بكل حب.. 🇵🇸</p>
+            <small>نقدر وجودكم ودعمكم في رحلتنا</small>
         </div>
     </div>
 
-    <div class="btn-container">
+    <div class="live-wrapper">
+        <div class="live-count"><i class="fas fa-eye"></i> 14.2K</div>
         <a href="#" class="main-btn btn-live">
-            <i class="fas fa-satellite-dish"></i> انضموا للبث المباشر (LIVE)
+            <i class="fas fa-broadcast-tower"></i> دخول البث المباشر الآن
         </a>
-
-        <button class="main-btn" onclick="toggleVideos()">
-            <i class="fas fa-user-lock"></i> فيديوهاتي الخاصة (4)
-        </button>
     </div>
+
+    <button class="main-btn" onclick="toggleVideos()">
+        <i class="fas fa-shield-halved"></i> فيديوهاتنا الخاصة (مقفول)
+    </button>
 
     <div class="video-grid" id="videoGrid">
-        <div class="video-item">
-            <img src="https://via.placeholder.com/300x500" alt="video">
-            <div class="lock-overlay">
-                <i class="fas fa-lock"></i>
-                <span>محتوى حساس</span>
-            </div>
+        <div class="video-card">
+            <img src="https://via.placeholder.com/200">
+            <div class="lock-content"><i class="fas fa-lock"></i><span>VIP 01</span></div>
         </div>
-        <div class="video-item">
-            <img src="https://via.placeholder.com/300x500" alt="video">
-            <div class="lock-overlay">
-                <i class="fas fa-lock"></i>
-                <span>محتوى حساس</span>
-            </div>
+        <div class="video-card">
+            <img src="https://via.placeholder.com/200">
+            <div class="lock-content"><i class="fas fa-lock"></i><span>VIP 02</span></div>
         </div>
-        <div class="video-item">
-            <img src="https://via.placeholder.com/300x500" alt="video">
-            <div class="lock-overlay">
-                <i class="fas fa-lock"></i>
-                <span>محتوى حساس</span>
-            </div>
+        <div class="video-card">
+            <img src="https://via.placeholder.com/200">
+            <div class="lock-content"><i class="fas fa-lock"></i><span>VIP 03</span></div>
         </div>
-        <div class="video-item">
-            <img src="https://via.placeholder.com/300x500" alt="video">
-            <div class="lock-overlay">
-                <i class="fas fa-lock"></i>
-                <span>محتوى حساس</span>
-            </div>
+        <div class="video-card">
+            <img src="https://via.placeholder.com/200">
+            <div class="lock-content"><i class="fas fa-lock"></i><span>VIP 04</span></div>
         </div>
+    </div>
+
+    <div class="support-text">
+        <i class="fas fa-heart"></i> شكراً لكونكم جزءاً من عائلتنا
     </div>
 </div>
 
 <script>
     function toggleVideos() {
         var grid = document.getElementById("videoGrid");
-        if (grid.style.display === "grid") {
-            grid.style.display = "none";
-        } else {
-            grid.style.display = "grid";
-            grid.scrollIntoView({ behavior: 'smooth' });
-        }
+        grid.style.display = (grid.style.display === "grid") ? "none" : "grid";
+        if(grid.style.display === "grid") grid.scrollIntoView({ behavior: 'smooth' });
     }
 </script>
 
