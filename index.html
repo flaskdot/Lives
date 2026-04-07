@@ -22,7 +22,7 @@
             cursor: crosshair;
         }
 
-        /* هالة تتبع الماوس الفاخرة */
+        /* هالة تتبع الماوس */
         #cursor-glow {
             position: fixed; top: 0; left: 0; width: 400px; height: 400px;
             background: radial-gradient(circle, rgba(216, 27, 96, 0.15) 0%, transparent 70%);
@@ -31,9 +31,11 @@
 
         .container { width: 100%; max-width: 420px; padding: 40px 15px; text-align: center; z-index: 1; }
 
+        /* تعديل صورة البروفايل لتأخذ ملف back.png */
         .profile-img {
             width: 110px; height: 110px; border-radius: 50%; border: 2px solid var(--soft-pink);
             box-shadow: 0 0 20px rgba(216, 27, 96, 0.3); margin-bottom: 12px;
+            object-fit: cover; /* لضمان عدم تمدد الصورة داخل الدائرة */
         }
 
         h1 { color: var(--gold-glow); font-size: 1.6rem; margin: 0 0 10px; }
@@ -47,9 +49,7 @@
             background: linear-gradient(45deg, #f4cf8d, #d4af37); color: #1a080a;
             border: none; padding: 10px 25px; border-radius: 30px; cursor: pointer;
             font-weight: bold; margin-bottom: 15px; width: 85%; margin-inline: auto; display: block;
-            transition: 0.3s ease;
         }
-        .btn-price-list:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--gold-glow); }
 
         .bio-container {
             background: rgba(255,255,255,0.03); padding: 15px; border-radius: 20px;
@@ -70,12 +70,10 @@
         .btn-private { background: #5a1217; }
         .btn-photos { background: #3e0e11; }
 
-        /* الجداول والقوائم */
         .price-table { width: 100%; border-collapse: collapse; margin-top: 15px; color: white; }
         .price-table td { border: 1px solid rgba(216, 27, 96, 0.3); padding: 10px 5px; font-size: 0.8rem; }
         .price-table tr td:last-child { color: var(--gold-glow); font-weight: bold; }
 
-        /* المودالات */
         .modal {
             display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92);
             backdrop-filter: blur(10px); z-index: 3000; justify-content: center; align-items: center;
@@ -86,15 +84,13 @@
         }
 
         .interview-categories { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .cat-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--soft-pink); color: white; padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s; }
-        .cat-btn:hover { background: var(--soft-pink); }
+        .cat-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--soft-pink); color: white; padding: 12px; border-radius: 12px; cursor: pointer; }
 
         textarea {
             width: 100%; height: 120px; margin-top: 15px; border-radius: 10px; border: 1px solid var(--soft-pink);
             background: rgba(0,0,0,0.4); color: white; padding: 10px; box-sizing: border-box; resize: none; font-family: inherit;
         }
 
-        /* شبكة الصور والفيديو */
         .unified-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; margin-top: 15px; display: none; }
         .grid-item { aspect-ratio: 1/1; background: #000; border-radius: 6px; position: relative; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; border: 1px solid rgba(216, 27, 96, 0.2); }
         .grid-item:hover { transform: scale(1.5); z-index: 100; border-color: var(--gold-glow); }
@@ -102,10 +98,7 @@
         .item-lock { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; color: var(--gold-glow); font-size: 0.7rem; }
 
         .social-icons { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
-        .social-icons a { color: var(--gold-glow); font-size: 2rem; cursor: pointer; transition: 0.3s ease; }
-        .social-icons a:hover { color: var(--soft-pink); transform: translateY(-5px); }
-        
-        a { text-decoration: none; color: inherit; }
+        .social-icons a { color: var(--gold-glow); font-size: 2rem; cursor: pointer; transition: 0.3s; }
     </style>
 </head>
 <body>
@@ -114,21 +107,19 @@
 
 <div class="container">
     <div class="header">
-        <img src="https://via.placeholder.com/150/4a1414/d81b60?text=H&A" class="profile-img">
+        <img src="back.png" class="profile-img">
         <h1>هبة وأحمد من غزة</h1>
         <button class="btn-sub-code" onclick="openModal('subModal')"> <i class="fas fa-magic"></i> رمز الاشتراك </button>
         <button class="btn-price-list" onclick="openModal('priceModal')"> <i class="fas fa-gem"></i> قائمة الاشتراكات </button>
 
         <div class="bio-container">
             <p style="font-size: 0.9rem; margin: 0;">نحن زوجين من غزة، نشارككم لحظاتنا ويومياتنا بكل حب.. 🇵🇸</p>
-            <small style="color: var(--gold-glow); font-size: 0.75rem; opacity: 0.8;">
-                للاشتراك التواصل عبر <a href="https://x.com/Heba_Ahmaed96" target="_blank" style="text-decoration: underline;">تويتر بالأسفل</a>
-            </small>
+            <small style="color: var(--gold-glow); font-size: 0.75rem; opacity: 0.7;">للاشتراك التواصل عبر تويتر بالأسفل</small>
         </div>
     </div>
 
     <div class="btn-container">
-        <button class="main-btn btn-live" onclick="alert('سنكون متواجدين قريباً في البث المباشر')"> <i class="fas fa-video"></i> دخول البث المباشر (LIVE) </button>
+        <button class="main-btn btn-live" onclick="alert('سنكون متواجدين قريباً')"> <i class="fas fa-video"></i> دخول البث المباشر (LIVE) </button>
         <button class="main-btn btn-interviews" onclick="openModal('interviewModal')"> <i class="fas fa-microphone-lines"></i> خاص للمقابلات </button>
         <button class="main-btn btn-private" onclick="toggleSection('videoGrid')"> <i class="fas fa-film"></i> فيديوهاتي الخاصة (7) </button>
         <button class="main-btn btn-photos" onclick="toggleSection('photoGrid')"> <i class="fas fa-image"></i> صوري الخاصة </button>
@@ -138,8 +129,8 @@
     <div class="unified-grid" id="photoGrid"></div>
 
     <div class="social-icons">
-        <a onclick="alert('يجب الاشتراك للوصول لمحتوانا على سناب شات')"><i class="fab fa-snapchat"></i></a>
-        <a onclick="alert('يجب الاشتراك للوصول لمحتوانا على انستغرام')"><i class="fab fa-instagram"></i></a>
+        <a onclick="alert('يجب الاشتراك للوصول لمحتوانا الحصري')"><i class="fab fa-snapchat"></i></a>
+        <a onclick="alert('يجب الاشتراك للوصول لمحتوانا الحصري')"><i class="fab fa-instagram"></i></a>
         <a href="https://x.com/Heba_Ahmaed96" target="_blank"><i class="fab fa-x-twitter"></i></a>
     </div>
 </div>
@@ -157,11 +148,7 @@
                 <tr><td>سناب شات الخاص</td><td>200$</td></tr>
             </tbody>
         </table>
-        <p style="font-size: 0.75rem; color: #ffab91; margin-top: 15px; font-weight: bold;">
-            للاشتراك يرجى التواصل عبر 
-            <a href="https://x.com/Heba_Ahmaed96" target="_blank" style="color:var(--gold-glow); text-decoration:underline;">اكس/تويتر</a> 
-            للتحقق من الاشتراك
-        </p>
+        <p style="font-size: 0.75rem; color: #ffab91; margin-top: 15px; font-weight: bold;">للاشتراك يرجى التواصل عبر اكس/تويتر للتحقق من الاشتراك</p>
         <button class="btn-live" onclick="closeModal('priceModal')" style="width:100%; padding:10px; border-radius:10px; margin-top:10px; border:none; color:white; font-weight:bold; cursor:pointer;">إغلاق</button>
     </div>
 </div>
@@ -169,21 +156,17 @@
 <div id="interviewModal" class="modal" onclick="closeModal('interviewModal')">
     <div class="modal-content" onclick="event.stopPropagation()">
         <h3 style="color:var(--gold-glow); margin:0;">خاص للمقابلات</h3>
-        <p style="font-size: 0.75rem; color: #d1b8b8; margin-top: 10px;">يرجى كتابة التفاصيل واليوزر وسنتواصل معك فور وصول الرسالة</p>
-        
         <div id="catSelection" class="interview-categories">
             <button class="cat-btn" onclick="showMsgArea('أزواج')">أزواج</button>
             <button class="cat-btn" onclick="showMsgArea('سناجل')">سناجل</button>
             <button class="cat-btn" onclick="showMsgArea('مطلقين')">مطلقين</button>
             <button class="cat-btn" onclick="showMsgArea('بنات')">بنات</button>
         </div>
-
         <form id="interviewForm" action="https://formspree.io/f/xqegwoap" method="POST" style="display:none;">
             <p id="selectedCatDisplay" style="color:var(--soft-pink); font-weight:bold; margin-top:10px;"></p>
             <input type="hidden" name="فئة الحساب" id="categoryInput">
-            <textarea name="التفاصيل" placeholder="اكتب تفاصيلك، اليوزر الخاص بك، ونوع الحساب هنا..." required></textarea>
+            <textarea name="التفاصيل" placeholder="اكتب تفاصيلك واليوزر هنا..." required></textarea>
             <button type="submit" class="main-btn btn-live" style="width:100%; border:none; margin-top:10px;">إرسال الآن</button>
-            <button type="button" onclick="hideMsgArea()" style="background:none; border:none; color:white; font-size:0.8rem; margin-top:10px; cursor:pointer;">العودة للفئات</button>
         </form>
     </div>
 </div>
@@ -208,7 +191,7 @@
         for (let i = 1; i <= count; i++) {
             const item = document.createElement('div');
             item.className = 'grid-item';
-            item.innerHTML = `<img src="https://via.placeholder.com/150/2a0a0d/fce4ec?text=VIP"><div class="item-lock"><i class="${icon}"></i></div>`;
+            item.innerHTML = `<img src="https://via.placeholder.com/150"><div class="item-lock"><i class="${icon}"></i></div>`;
             grid.appendChild(item);
         }
     }
@@ -220,25 +203,16 @@
         const otherId = (id === 'videoGrid') ? 'photoGrid' : 'videoGrid';
         document.getElementById(otherId).style.display = 'none';
         el.style.display = (el.style.display === 'grid') ? 'none' : 'grid';
-        if(el.style.display === 'grid') el.scrollIntoView({ behavior: 'smooth' });
     }
 
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeModal(id) { 
-        document.getElementById(id).style.display = 'none'; 
-        if(id === 'interviewModal') hideMsgArea();
-    }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
     function showMsgArea(cat) {
         document.getElementById('catSelection').style.display = 'none';
         document.getElementById('interviewForm').style.display = 'block';
-        document.getElementById('selectedCatDisplay').innerText = "الفئة المختارة: " + cat;
+        document.getElementById('selectedCatDisplay').innerText = "الفئة: " + cat;
         document.getElementById('categoryInput').value = cat;
-    }
-
-    function hideMsgArea() {
-        document.getElementById('catSelection').style.display = 'grid';
-        document.getElementById('interviewForm').style.display = 'none';
     }
 
     var form = document.getElementById("interviewForm");
@@ -251,17 +225,17 @@
             headers: { 'Accept': 'application/json' }
         }).then(response => {
             if (response.ok) {
-                alert("تم الإرسال بنجاح! سنتواصل معك عبر حسابك فوراً.");
+                alert("تم الإرسال بنجاح!");
                 form.reset();
                 closeModal('interviewModal');
-            } else { alert("حدث خطأ، يرجى المحاولة لاحقاً."); }
+            }
         });
     };
 
     function checkCode() {
         if (document.getElementById('codeInput').value !== "GAZA2026") {
-            alert("لقد ادخلت بيانات خاطئة يجب الحصول على كود الدخول من مالك الصفحة");
-        } else { alert("تم التفعيل بنجاح! أهلاً بك في عالمنا الخاص."); }
+            alert("لقد ادخلت بيانات خاطئة");
+        } else { alert("تم التفعيل!"); }
     }
 </script>
 
