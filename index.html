@@ -81,10 +81,45 @@
             text-align: center; width: 90%; max-width: 360px;
         }
 
-        .unified-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; display: none; }
-        .grid-item { aspect-ratio: 1/1; background: #000; border-radius: 12px; position: relative; overflow: hidden; border: 1px solid rgba(216, 27, 96, 0.2); }
-        .grid-item img { width: 100%; height: 100%; object-fit: cover; filter: blur(12px); opacity: 0.5; transition: 0.5s; }
-        .item-lock { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; color: var(--gold-glow); font-size: 1.2rem; background: rgba(0,0,0,0.2); }
+        /* تعديلات الشبكة (5 أعمدة) */
+        .unified-grid { 
+            display: grid; 
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 6px; 
+            margin-top: 15px; 
+            display: none; 
+        }
+
+        .grid-item { 
+            aspect-ratio: 1/1; 
+            background: #000; 
+            border-radius: 6px; /* زوايا أصغر لتناسب الحجم الجديد */
+            position: relative; 
+            overflow: hidden; 
+            border: 1px solid rgba(216, 27, 96, 0.2); 
+        }
+
+        /* تعديل التغبيش ليكون متوسطاً */
+        .grid-item img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            filter: blur(5px); 
+            opacity: 0.7; 
+            transition: 0.5s; 
+        }
+
+        /* تعديل حجم القفل ليتناسب مع المربعات الصغيرة */
+        .item-lock { 
+            position: absolute; 
+            inset: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            color: var(--gold-glow); 
+            font-size: 0.8rem; 
+            background: rgba(0,0,0,0.2); 
+        }
 
         .social-icons { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
         .social-icons a { color: var(--gold-glow); font-size: 2rem; cursor: pointer; transition: 0.3s; }
@@ -157,14 +192,12 @@
 </div>
 
 <script>
-    // هالة الماوس
     const glow = document.getElementById('cursor-glow');
     document.addEventListener('mousemove', (e) => {
         glow.style.left = e.clientX + 'px';
         glow.style.top = e.clientY + 'px';
     });
 
-    // روابط الصور التي زودتني بها
     const myPhotosLinks = [
         "https://i.postimg.cc/ctvcGJy9/HE-m-Mm-Lb-YAARj-WB.jpg",
         "https://i.postimg.cc/YLvxBSK6/HE2ULww-Xo-AEh-Tsf.jpg",
@@ -199,7 +232,7 @@
             const item = document.createElement('div');
             item.className = 'grid-item';
             item.innerHTML = `
-                <img src="https://via.placeholder.com/150/20080a/f4cf8d?text=Locked+Video">
+                <img src="https://via.placeholder.com/150/20080a/f4cf8d?text=Locked">
                 <div class="item-lock"><i class="fas fa-play"></i></div>
             `;
             item.onclick = () => alert("الفيديو متاح للمشتركين فقط.");
@@ -208,7 +241,7 @@
     }
 
     generatePhotoGrid('photoGrid', myPhotosLinks);
-    generateVideoGrid('videoGrid', 7);
+    generateVideoGrid('videoGrid', 10); // زدنا العدد لملء السطور
 
     function toggleSection(id) {
         const v = document.getElementById('videoGrid');
