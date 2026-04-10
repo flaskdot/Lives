@@ -22,7 +22,6 @@
             cursor: crosshair;
         }
 
-        /* هالة تتبع الماوس */
         #cursor-glow {
             position: fixed; top: 0; left: 0; width: 400px; height: 400px;
             background: radial-gradient(circle, rgba(216, 27, 96, 0.15) 0%, transparent 70%);
@@ -31,11 +30,10 @@
 
         .container { width: 100%; max-width: 420px; padding: 40px 15px; text-align: center; z-index: 1; }
 
-        /* تعديل صورة البروفايل لتأخذ ملف back.png */
         .profile-img {
             width: 110px; height: 110px; border-radius: 50%; border: 2px solid var(--soft-pink);
             box-shadow: 0 0 20px rgba(216, 27, 96, 0.3); margin-bottom: 12px;
-            object-fit: cover; /* لضمان عدم تمدد الصورة داخل الدائرة */
+            object-fit: cover;
         }
 
         h1 { color: var(--gold-glow); font-size: 1.6rem; margin: 0 0 10px; }
@@ -83,19 +81,10 @@
             text-align: center; width: 90%; max-width: 360px;
         }
 
-        .interview-categories { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .cat-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--soft-pink); color: white; padding: 12px; border-radius: 12px; cursor: pointer; }
-
-        textarea {
-            width: 100%; height: 120px; margin-top: 15px; border-radius: 10px; border: 1px solid var(--soft-pink);
-            background: rgba(0,0,0,0.4); color: white; padding: 10px; box-sizing: border-box; resize: none; font-family: inherit;
-        }
-
-        .unified-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; margin-top: 15px; display: none; }
-        .grid-item { aspect-ratio: 1/1; background: #000; border-radius: 6px; position: relative; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; border: 1px solid rgba(216, 27, 96, 0.2); }
-        .grid-item:hover { transform: scale(1.5); z-index: 100; border-color: var(--gold-glow); }
-        .grid-item img { width: 100%; height: 100%; object-fit: cover; filter: blur(8px); opacity: 0.4; }
-        .item-lock { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; color: var(--gold-glow); font-size: 0.7rem; }
+        .unified-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; display: none; }
+        .grid-item { aspect-ratio: 1/1; background: #000; border-radius: 12px; position: relative; overflow: hidden; border: 1px solid rgba(216, 27, 96, 0.2); }
+        .grid-item img { width: 100%; height: 100%; object-fit: cover; filter: blur(12px); opacity: 0.5; transition: 0.5s; }
+        .item-lock { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; color: var(--gold-glow); font-size: 1.2rem; background: rgba(0,0,0,0.2); }
 
         .social-icons { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
         .social-icons a { color: var(--gold-glow); font-size: 2rem; cursor: pointer; transition: 0.3s; }
@@ -107,7 +96,7 @@
 
 <div class="container">
     <div class="header">
-        <img src="back.png" class="profile-img">
+        <img src="back.png" class="profile-img" onerror="this.src='https://via.placeholder.com/110'">
         <h1>هبة وأحمد من غزة</h1>
         <button class="btn-sub-code" onclick="openModal('subModal')"> <i class="fas fa-magic"></i> رمز الاشتراك </button>
         <button class="btn-price-list" onclick="openModal('priceModal')"> <i class="fas fa-gem"></i> قائمة الاشتراكات </button>
@@ -135,107 +124,116 @@
     </div>
 </div>
 
+<!-- Modal Price -->
 <div id="priceModal" class="modal" onclick="closeModal('priceModal')">
     <div class="modal-content" onclick="event.stopPropagation()">
-        <h3 style="color:var(--gold-glow); margin:0;">قائمة الاشتراكات</h3>
+        <h3 style="color:var(--gold-glow);">قائمة الاشتراكات</h3>
         <table class="price-table">
-            <tbody>
-                <tr><td>الموقع كامل</td><td>300$</td></tr>
-                <tr><td>اللايف فقط</td><td>300$</td></tr>
-                <tr><td>الفيديوهات فقط</td><td>250$</td></tr>
-                <tr><td>الصور فقط</td><td>200$</td></tr>
-                <tr><td>الموقع كامل + التحميل</td><td>400$</td></tr>
-                <tr><td>سناب شات الخاص</td><td>200$</td></tr>
-            </tbody>
+            <tr><td>الموقع كامل</td><td>300$</td></tr>
+            <tr><td>اللايف فقط</td><td>300$</td></tr>
+            <tr><td>الفيديوهات فقط</td><td>250$</td></tr>
+            <tr><td>الصور فقط</td><td>200$</td></tr>
         </table>
-        <p style="font-size: 0.75rem; color: #ffab91; margin-top: 15px; font-weight: bold;">للاشتراك يرجى التواصل عبر اكس/تويتر للتحقق من الاشتراك</p>
-        <button class="btn-live" onclick="closeModal('priceModal')" style="width:100%; padding:10px; border-radius:10px; margin-top:10px; border:none; color:white; font-weight:bold; cursor:pointer;">إغلاق</button>
+        <button class="btn-live" onclick="closeModal('priceModal')" style="width:100%; margin-top:15px; padding:10px; border:none; color:white; border-radius:10px;">إغلاق</button>
     </div>
 </div>
 
-<div id="interviewModal" class="modal" onclick="closeModal('interviewModal')">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <h3 style="color:var(--gold-glow); margin:0;">خاص للمقابلات</h3>
-        <div id="catSelection" class="interview-categories">
-            <button class="cat-btn" onclick="showMsgArea('أزواج')">أزواج</button>
-            <button class="cat-btn" onclick="showMsgArea('سناجل')">سناجل</button>
-            <button class="cat-btn" onclick="showMsgArea('مطلقين')">مطلقين</button>
-            <button class="cat-btn" onclick="showMsgArea('بنات')">بنات</button>
-        </div>
-        <form id="interviewForm" action="https://formspree.io/f/xqegwoap" method="POST" style="display:none;">
-            <p id="selectedCatDisplay" style="color:var(--soft-pink); font-weight:bold; margin-top:10px;"></p>
-            <input type="hidden" name="فئة الحساب" id="categoryInput">
-            <textarea name="التفاصيل" placeholder="اكتب تفاصيلك واليوزر هنا..." required></textarea>
-            <button type="submit" class="main-btn btn-live" style="width:100%; border:none; margin-top:10px;">إرسال الآن</button>
-        </form>
-    </div>
-</div>
-
+<!-- Modal Subscription -->
 <div id="subModal" class="modal" onclick="closeModal('subModal')">
     <div class="modal-content" onclick="event.stopPropagation()">
         <h3 style="color:var(--gold-glow);">تفعيل الاشتراك</h3>
-        <input type="text" id="codeInput" style="width:100%; padding:12px; margin-bottom:15px; border-radius:10px; border:1px solid var(--soft-pink); background:rgba(0,0,0,0.3); color:white; text-align:center;" placeholder="اكتب الرمز هنا...">
-        <button class="btn-live" onclick="checkCode()" style="width:100%; padding:12px; border-radius:10px; border:none; color:white; font-weight:bold; cursor:pointer;">تفعيل</button>
+        <input type="text" id="codeInput" style="width:90%; padding:12px; margin-bottom:15px; border-radius:10px; border:1px solid var(--soft-pink); background:rgba(0,0,0,0.3); color:white; text-align:center;" placeholder="اكتب الرمز هنا...">
+        <button class="btn-live" onclick="checkCode()" style="width:100%; padding:12px; border:none; color:white; font-weight:bold; border-radius:10px;">تفعيل</button>
+    </div>
+</div>
+
+<!-- Modal Interviews -->
+<div id="interviewModal" class="modal" onclick="closeModal('interviewModal')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <h3 style="color:var(--gold-glow);">خاص للمقابلات</h3>
+        <p style="font-size:0.8rem;">تواصل معنا لتحديد موعد مقابلة خاصة</p>
+        <button class="btn-live" onclick="window.open('https://x.com/Heba_Ahmaed96')" style="width:100%; padding:10px; border:none; color:white; border-radius:10px;">ارسل رسالة الآن</button>
     </div>
 </div>
 
 <script>
+    // هالة الماوس
     const glow = document.getElementById('cursor-glow');
     document.addEventListener('mousemove', (e) => {
         glow.style.left = e.clientX + 'px';
         glow.style.top = e.clientY + 'px';
     });
 
-    function generateGrid(id, count, icon) {
+    // روابط الصور التي زودتني بها
+    const myPhotosLinks = [
+        "https://i.postimg.cc/ctvcGJy9/HE-m-Mm-Lb-YAARj-WB.jpg",
+        "https://i.postimg.cc/YLvxBSK6/HE2ULww-Xo-AEh-Tsf.jpg",
+        "https://i.postimg.cc/Th10DtL6/HE9R1L-Xw-AA0pzw.jpg",
+        "https://i.postimg.cc/7bh92KGD/HFcc6Vd-WAAAFLR2.jpg",
+        "https://i.postimg.cc/xq85z6Jn/HFf-Q5L3b-QAAXh-Hz.jpg",
+        "https://i.postimg.cc/z3v7gxbq/HFSD8Kn-W8AAv-NTJ.jpg",
+        "https://i.postimg.cc/bdrgtmDn/HFSi-WFp-Xs-AAKg-Gm.jpg",
+        "https://i.postimg.cc/5jygCsY8/HFT6E3nak-AE6-QP.jpg",
+        "https://i.postimg.cc/XXP8c9dy/HFT6E9-bw-AE-Gbe.jpg",
+        "https://i.postimg.cc/mtFSdhSx/HFTf-l-PWw-AAb-Taf.jpg",
+        "https://i.postimg.cc/tYVzr7zG/HFZd-Ey8a8AIAMFl.jpg"
+    ];
+
+    function generatePhotoGrid(id, photosArray) {
+        const grid = document.getElementById(id);
+        photosArray.forEach(link => {
+            const item = document.createElement('div');
+            item.className = 'grid-item';
+            item.innerHTML = `
+                <img src="${link}">
+                <div class="item-lock"><i class="fas fa-lock"></i></div>
+            `;
+            item.onclick = () => alert("هذا المحتوى مقفل. يرجى الاشتراك أولاً.");
+            grid.appendChild(item);
+        });
+    }
+
+    function generateVideoGrid(id, count) {
         const grid = document.getElementById(id);
         for (let i = 1; i <= count; i++) {
             const item = document.createElement('div');
             item.className = 'grid-item';
-            item.innerHTML = `<img src="https://via.placeholder.com/150"><div class="item-lock"><i class="${icon}"></i></div>`;
+            item.innerHTML = `
+                <img src="https://via.placeholder.com/150/20080a/f4cf8d?text=Locked+Video">
+                <div class="item-lock"><i class="fas fa-play"></i></div>
+            `;
+            item.onclick = () => alert("الفيديو متاح للمشتركين فقط.");
             grid.appendChild(item);
         }
     }
-    generateGrid('photoGrid', 22, 'fas fa-lock');
-    generateGrid('videoGrid', 7, 'fas fa-play');
+
+    generatePhotoGrid('photoGrid', myPhotosLinks);
+    generateVideoGrid('videoGrid', 7);
 
     function toggleSection(id) {
-        const el = document.getElementById(id);
-        const otherId = (id === 'videoGrid') ? 'photoGrid' : 'videoGrid';
-        document.getElementById(otherId).style.display = 'none';
-        el.style.display = (el.style.display === 'grid') ? 'none' : 'grid';
+        const v = document.getElementById('videoGrid');
+        const p = document.getElementById('photoGrid');
+        if (id === 'videoGrid') {
+            p.style.display = 'none';
+            v.style.display = (v.style.display === 'grid') ? 'none' : 'grid';
+        } else {
+            v.style.display = 'none';
+            p.style.display = (p.style.display === 'grid') ? 'none' : 'grid';
+        }
     }
 
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    function showMsgArea(cat) {
-        document.getElementById('catSelection').style.display = 'none';
-        document.getElementById('interviewForm').style.display = 'block';
-        document.getElementById('selectedCatDisplay').innerText = "الفئة: " + cat;
-        document.getElementById('categoryInput').value = cat;
-    }
-
-    var form = document.getElementById("interviewForm");
-    form.onsubmit = function(e) {
-        e.preventDefault();
-        var data = new FormData(form);
-        fetch(form.action, {
-            method: form.method,
-            body: data,
-            headers: { 'Accept': 'application/json' }
-        }).then(response => {
-            if (response.ok) {
-                alert("تم الإرسال بنجاح!");
-                form.reset();
-                closeModal('interviewModal');
-            }
-        });
-    };
-
     function checkCode() {
-        if (document.getElementById('codeInput').value !== "GAZA2026") {
-            alert("لقد ادخلت بيانات خاطئة");
-        } else { alert("تم التفعيل!"); }
+        if (document.getElementById('codeInput').value === "GAZA2026") {
+            alert("تم التفعيل! استمتع بالمحتوى.");
+            document.querySelectorAll('.grid-item img').forEach(img => img.style.filter = 'none');
+            document.querySelectorAll('.item-lock').forEach(lock => lock.style.display = 'none');
+            closeModal('subModal');
+        } else {
+            alert("رمز غير صحيح.");
+        }
     }
 </script>
 
