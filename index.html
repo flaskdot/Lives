@@ -21,6 +21,7 @@
             min-height: 100vh; color: var(--text-color); overflow-x: hidden;
         }
 
+        /* هالة الماوس */
         #cursor-glow {
             position: fixed; top: 0; left: 0; width: 400px; height: 400px;
             background: radial-gradient(circle, rgba(216, 27, 96, 0.15) 0%, transparent 70%);
@@ -66,7 +67,7 @@
         .btn-private { background: #5a1217; }
         .btn-photos { background: #3e0e11; }
 
-        /* تعديلات الشبكة (5 أعمدة) */
+        /* الشبكة - 5 أعمدة إجباري */
         .unified-grid { 
             display: grid; 
             grid-template-columns: repeat(5, 1fr) !important; 
@@ -76,9 +77,9 @@
         .grid-item { 
             aspect-ratio: 1/1; background: #000; border-radius: 6px; 
             position: relative; overflow: hidden; border: 1px solid rgba(216, 27, 96, 0.2); 
+            cursor: pointer;
         }
 
-        /* التغبيش يشمل الإيموجي والصورة */
         .blur-wrapper {
             width: 100%; height: 100%; filter: blur(12px); transition: 0.5s; position: relative;
         }
@@ -96,7 +97,7 @@
             background: rgba(0,0,0,0.3); z-index: 3;
         }
 
-        /* القوائم الجانبية (Modal) */
+        /* النوافذ المنبثقة (Modals) */
         .modal {
             display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92);
             backdrop-filter: blur(10px); z-index: 3000; justify-content: center; align-items: center;
@@ -106,8 +107,13 @@
             text-align: center; width: 90%; max-width: 360px;
         }
 
+        .price-table { width: 100%; border-collapse: collapse; margin-top: 15px; color: white; }
+        .price-table td { border: 1px solid rgba(216, 27, 96, 0.3); padding: 10px 5px; font-size: 0.9rem; }
+        .price-table tr td:last-child { color: var(--gold-glow); font-weight: bold; }
+
+        /* أيقونات التواصل */
         .social-icons { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
-        .social-icons a { color: var(--gold-glow); font-size: 1.8rem; }
+        .social-icons a { color: var(--gold-glow); font-size: 1.8rem; text-decoration: none; cursor: pointer;}
     </style>
 </head>
 <body>
@@ -120,30 +126,64 @@
         <h1>هبة وأحمد من غزة</h1>
         <button class="btn-sub-code" onclick="openModal('subModal')"> <i class="fas fa-magic"></i> رمز الاشتراك </button>
         <button class="btn-price-list" onclick="openModal('priceModal')"> <i class="fas fa-gem"></i> قائمة الاشتراكات </button>
+        
+        <div class="bio-container">
+            <p style="font-size: 0.9rem; margin: 0;">نحن زوجين من غزة، نشارككم لحظاتنا ويومياتنا بكل حب.. 🇵🇸</p>
+        </div>
     </div>
 
     <div class="btn-container">
-        <button class="main-btn btn-live" onclick="alert('سنكون متواجدين قريباً')"> <i class="fas fa-video"></i> دخول البث المباشر (LIVE) </button>
+        <button class="main-btn btn-live" onclick="alert('سنكون متواجدين قريباً في البث المباشر')"> <i class="fas fa-video"></i> دخول البث المباشر (LIVE) </button>
         <button class="main-btn btn-interviews" onclick="openModal('interviewModal')"> <i class="fas fa-microphone-lines"></i> خاص للمقابلات </button>
         <button class="main-btn btn-private" onclick="toggleSection('videoGrid')"> <i class="fas fa-film"></i> فيديوهاتي الخاصة (10) </button>
         <button class="main-btn btn-photos" onclick="toggleSection('photoGrid')"> <i class="fas fa-image"></i> صوري الخاصة </button>
     </div>
 
+    <!-- شبكة الفيديوهات -->
     <div class="unified-grid" id="videoGrid"></div>
+    
+    <!-- شبكة الصور -->
     <div class="unified-grid" id="photoGrid"></div>
 
+    <!-- أيقونات السوشيال ميديا -->
     <div class="social-icons">
         <a href="https://x.com/Heba_Ahmaed96" target="_blank"><i class="fab fa-x-twitter"></i></a>
-        <a href="#"><i class="fab fa-telegram"></i></a>
-        <a href="#"><i class="fab fa-snapchat"></i></a>
+        <a onclick="alert('يجب الاشتراك لعرض الحسابات الشخصية'); return false;"><i class="fab fa-telegram"></i></a>
+        <a onclick="alert('يجب الاشتراك لعرض الحسابات الشخصية'); return false;"><i class="fab fa-snapchat"></i></a>
     </div>
 </div>
 
+<!-- نافذة قائمة الأسعار -->
+<div id="priceModal" class="modal" onclick="closeModal('priceModal')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <h3 style="color:var(--gold-glow);">قائمة الاشتراكات</h3>
+        <table class="price-table">
+            <tr><td>الموقع كامل</td><td>300$</td></tr>
+            <tr><td>اللايف فقط</td><td>300$</td></tr>
+            <tr><td>الفيديوهات فقط</td><td>250$</td></tr>
+            <tr><td>الصور فقط</td><td>200$</td></tr>
+        </table>
+        <button class="main-btn btn-private" onclick="closeModal('priceModal')" style="margin-top:15px; width:100%;">إغلاق</button>
+    </div>
+</div>
+
+<!-- نافذة المقابلات -->
+<div id="interviewModal" class="modal" onclick="closeModal('interviewModal')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <h3 style="color:var(--gold-glow);">خاص للمقابلات</h3>
+        <p style="font-size:0.9rem; color:white;">يرجى التواصل معنا عبر حساباتنا الرسمية لتحديد موعد مقابلة.</p>
+        <button class="main-btn btn-interviews" onclick="window.open('https://x.com/Heba_Ahmaed96', '_blank')" style="margin-top:15px; width:100%;">تواصل عبر X</button>
+        <button class="main-btn btn-private" onclick="closeModal('interviewModal')" style="margin-top:10px; width:100%;">إغلاق</button>
+    </div>
+</div>
+
+<!-- نافذة تفعيل الكود -->
 <div id="subModal" class="modal" onclick="closeModal('subModal')">
     <div class="modal-content" onclick="event.stopPropagation()">
         <h3 style="color:var(--gold-glow);">تفعيل الاشتراك</h3>
         <input type="text" id="codeInput" style="width:90%; padding:12px; margin-bottom:15px; border-radius:10px; border:1px solid var(--soft-pink); background:rgba(0,0,0,0.3); color:white; text-align:center;" placeholder="اكتب الرمز هنا...">
-        <button class="main-btn btn-live" onclick="checkCode()" style="width:100%; padding:12px; border:none; color:white; font-weight:bold; border-radius:10px;">تفعيل</button>
+        <button class="main-btn btn-live" onclick="checkCode()" style="width:100%;">تفعيل الكود</button>
+        <button class="main-btn btn-private" onclick="closeModal('subModal')" style="margin-top:10px; width:100%;">إلغاء</button>
     </div>
 </div>
 
@@ -155,49 +195,70 @@
 
     let isActivated = false;
 
-    // تم إضافة صور الغلاف الحقيقية المستخرجة من روابطك لتبدو واقعية
-    const videoData = [
-        { url: "https://x.com/saraadelok/status/2041442640441266570", thumb: "https://pbs.twimg.com/media/GFcc6Vd-WAAAFLR2?format=jpg&name=small", hasFace: true },
-        { url: "https://x.com/saraadelok/status/2041440733677150380", thumb: "https://pbs.twimg.com/media/HFcc6Vd-WAAAFLR2?format=jpg&name=small", hasFace: true },
-        { url: "https://x.com/saraadelok/status/2039652720114602092", thumb: "https://pbs.twimg.com/media/HE-m-Mm-Lb-YAARj-WB?format=jpg&name=small", hasFace: false },
-        { url: "https://x.com/almunaqaba100K/status/2042114160792605052", thumb: "https://pbs.twimg.com/media/HFf-Q5L3b-QAAXh-Hz?format=jpg&name=small", hasFace: true },
-        { url: "https://x.com/almunaqaba100K/status/2042114062759203218", thumb: "https://pbs.twimg.com/media/HFSD8Kn-W8AAv-NTJ?format=jpg&name=small", hasFace: true },
-        { url: "https://x.com/almunaqaba100K/status/2040031645533651026", thumb: "https://pbs.twimg.com/media/HE2ULww-XoAEh-Tsf?format=jpg&name=small", hasFace: false },
-        { url: "https://x.com/almunaqaba100K/status/2040031542160851069", thumb: "https://pbs.twimg.com/media/HFSi-WFp-Xs-AAKg-Gm?format=jpg&name=small", hasFace: false },
-        { url: "https://x.com/almunaqaba100K/status/2039268707784884419", thumb: "https://pbs.twimg.com/media/HE9R1L-Xw-AA0pzw?format=jpg&name=small", hasFace: true },
-        { url: "https://x.com/almunaqaba100K/status/2039206491064832336", thumb: "https://pbs.twimg.com/media/HFcc6Vd-WAAAFLR2?format=jpg&name=small", hasFace: true },
-        { url: "https://x.com/almunaqaba100K/status/2037848827856581045", thumb: "https://pbs.twimg.com/media/HE2ULww-XoAEh-Tsf?format=jpg&name=small", hasFace: false }
-    ];
-
-    const photoData = [
+    // لضمان عدم ظهور أي صور معطوبة، استخدمنا روابطك الشغالة 100% كأغلفة للفيديوهات
+    // وعند الضغط سيفتح رابط تويتر الخاص بها.
+    const reliableThumbnails = [
         "https://i.postimg.cc/z3v7gxbq/HFSD8Kn-W8AAv-NTJ.jpg",
         "https://i.postimg.cc/bdrgtmDn/HFSi-WFp-Xs-AAKg-Gm.jpg",
         "https://i.postimg.cc/ctvcGJy9/HE-m-Mm-Lb-YAARj-WB.jpg",
-        "https://i.postimg.cc/YLvxBSK6/HE2ULww-Xo-AEh-Tsf.jpg"
+        "https://i.postimg.cc/YLvxBSK6/HE2ULww-Xo-AEh-Tsf.jpg",
+        "https://i.postimg.cc/Th10DtL6/HE9R1L-Xw-AA0pzw.jpg",
+        "https://i.postimg.cc/7bh92KGD/HFcc6Vd-WAAAFLR2.jpg",
+        "https://i.postimg.cc/xq85z6Jn/HFf-Q5L3b-QAAXh-Hz.jpg",
+        "https://i.postimg.cc/z3v7gxbq/HFSD8Kn-W8AAv-NTJ.jpg", // مكرر لتكملة العدد
+        "https://i.postimg.cc/bdrgtmDn/HFSi-WFp-Xs-AAKg-Gm.jpg", // مكرر
+        "https://i.postimg.cc/ctvcGJy9/HE-m-Mm-Lb-YAARj-WB.jpg"  // مكرر
+    ];
+
+    const videoData = [
+        { url: "https://x.com/saraadelok/status/2041442640441266570", hasFace: true },
+        { url: "https://x.com/saraadelok/status/2041440733677150380", hasFace: true },
+        { url: "https://x.com/saraadelok/status/2039652720114602092", hasFace: false },
+        { url: "https://x.com/almunaqaba100K/status/2042114160792605052", hasFace: true },
+        { url: "https://x.com/almunaqaba100K/status/2042114062759203218", hasFace: true },
+        { url: "https://x.com/almunaqaba100K/status/2040031645533651026", hasFace: false },
+        { url: "https://x.com/almunaqaba100K/status/2040031542160851069", hasFace: false },
+        { url: "https://x.com/almunaqaba100K/status/2039268707784884419", hasFace: true },
+        { url: "https://x.com/almunaqaba100K/status/2039206491064832336", hasFace: true },
+        { url: "https://x.com/almunaqaba100K/status/2037848827856581045", hasFace: false }
+    ];
+
+    // قسم الصور يحتوي على جميع الصور السبعة التي أرفقتها مسبقاً
+    const photoLinks = [
+        "https://i.postimg.cc/ctvcGJy9/HE-m-Mm-Lb-YAARj-WB.jpg",
+        "https://i.postimg.cc/YLvxBSK6/HE2ULww-Xo-AEh-Tsf.jpg",
+        "https://i.postimg.cc/Th10DtL6/HE9R1L-Xw-AA0pzw.jpg",
+        "https://i.postimg.cc/7bh92KGD/HFcc6Vd-WAAAFLR2.jpg",
+        "https://i.postimg.cc/xq85z6Jn/HFf-Q5L3b-QAAXh-Hz.jpg",
+        "https://i.postimg.cc/z3v7gxbq/HFSD8Kn-W8AAv-NTJ.jpg",
+        "https://i.postimg.cc/bdrgtmDn/HFSi-WFp-Xs-AAKg-Gm.jpg"
     ];
 
     function initGrids() {
         const vGrid = document.getElementById('videoGrid');
-        videoData.forEach(item => {
+        videoData.forEach((item, index) => {
             const div = document.createElement('div');
             div.className = 'grid-item';
             const emojiHTML = item.hasFace ? '<div class="face-emoji">🙈</div>' : '';
             div.innerHTML = `
                 <div class="blur-wrapper">
                     ${emojiHTML}
-                    <img src="${item.thumb}">
+                    <img src="${reliableThumbnails[index]}">
                 </div>
                 <div class="item-lock"><i class="fas fa-play"></i></div>
             `;
             div.onclick = () => {
-                if (isActivated) window.open(item.url, '_blank');
-                else alert("يرجى تفعيل الكود لمشاهدة هذا الفيديو الخاص.");
+                if (isActivated) {
+                    window.open(item.url, '_blank');
+                } else {
+                    alert("يرجى تفعيل الكود لمشاهدة هذا الفيديو الخاص.");
+                }
             };
             vGrid.appendChild(div);
         });
 
         const pGrid = document.getElementById('photoGrid');
-        photoData.forEach(link => {
+        photoLinks.forEach(link => {
             const div = document.createElement('div');
             div.className = 'grid-item';
             div.innerHTML = `
@@ -206,7 +267,13 @@
                 </div>
                 <div class="item-lock"><i class="fas fa-lock"></i></div>
             `;
-            div.onclick = () => alert("الصور متاحة للمشتركين فقط.");
+            div.onclick = () => {
+                if (isActivated) {
+                    alert("الصورة واضحة الآن!"); // هنا يمكنك فتح الصورة لاحقاً إذا أردت
+                } else {
+                    alert("هذه الصورة متاحة للمشتركين فقط.");
+                }
+            };
             pGrid.appendChild(div);
         });
     }
@@ -214,6 +281,7 @@
     function toggleSection(id) {
         const v = document.getElementById('videoGrid');
         const p = document.getElementById('photoGrid');
+        
         if (id === 'videoGrid') {
             v.style.display = (v.style.display === 'grid') ? 'none' : 'grid';
             p.style.display = 'none';
@@ -223,21 +291,32 @@
         }
     }
 
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-    function checkCode() {
-        if (document.getElementById('codeInput').value === "GAZA2026") {
-            isActivated = true;
-            alert("تم التفعيل بنجاح! جميع المحتوى الآن متاح.");
-            document.querySelectorAll('.blur-wrapper').forEach(el => el.style.filter = 'none');
-            document.querySelectorAll('.item-lock, .face-emoji').forEach(el => el.style.display = 'none');
-            closeModal('subModal');
-        } else { alert("رمز التفعيل غير صحيح."); }
+    function openModal(id) {
+        document.getElementById(id).style.display = 'flex';
     }
 
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+
+    function checkCode() {
+        const code = document.getElementById('codeInput').value;
+        if (code === "GAZA2026") {
+            isActivated = true;
+            alert("تم التفعيل بنجاح! جميع المحتوى الآن متاح للضغط.");
+            
+            // إزالة الغبش والأقفال والإيموجي
+            document.querySelectorAll('.blur-wrapper').forEach(el => el.style.filter = 'none');
+            document.querySelectorAll('.item-lock, .face-emoji').forEach(el => el.style.display = 'none');
+            
+            closeModal('subModal');
+        } else {
+            alert("رمز التفعيل غير صحيح، يرجى المحاولة مرة أخرى.");
+        }
+    }
+
+    // تفعيل الشبكات عند بدء تحميل الصفحة
     initGrids();
 </script>
-
 </body>
 </html>
