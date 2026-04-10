@@ -9,6 +9,7 @@
         :root {
             --bg-feminine: #1a080a;
             --soft-pink: #d81b60;
+            --plum-deep: #4a148c;
             --gold-glow: #f4cf8d;
             --text-color: #fce4ec;
         }
@@ -18,9 +19,16 @@
             background-color: var(--bg-feminine);
             margin: 0; padding: 0; display: flex; justify-content: center;
             min-height: 100vh; color: var(--text-color); overflow-x: hidden;
+            cursor: crosshair;
         }
 
-        .container { width: 100%; max-width: 420px; padding: 40px 15px; text-align: center; }
+        #cursor-glow {
+            position: fixed; top: 0; left: 0; width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(216, 27, 96, 0.15) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none; z-index: -1; transform: translate(-50%, -50%);
+        }
+
+        .container { width: 100%; max-width: 420px; padding: 40px 15px; text-align: center; z-index: 1; }
 
         .profile-img {
             width: 110px; height: 110px; border-radius: 50%; border: 2px solid var(--soft-pink);
@@ -29,30 +37,49 @@
 
         h1 { color: var(--gold-glow); font-size: 1.6rem; margin: 0 0 10px; }
 
+        .btn-sub-code {
+            background: rgba(255,255,255,0.05); color: var(--gold-glow); border: 1px solid var(--soft-pink);
+            padding: 8px 20px; border-radius: 30px; cursor: pointer; margin-bottom: 10px; transition: 0.3s;
+        }
+
+        .btn-price-list {
+            background: linear-gradient(45deg, #f4cf8d, #d4af37); color: #1a080a;
+            border: none; padding: 10px 25px; border-radius: 30px; cursor: pointer;
+            font-weight: bold; margin-bottom: 15px; width: 85%; margin-inline: auto; display: block;
+        }
+
+        .bio-container {
+            background: rgba(255,255,255,0.03); padding: 15px; border-radius: 20px;
+            border: 1px solid rgba(216, 27, 96, 0.1); margin-bottom: 25px;
+        }
+
+        .btn-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
+
         .main-btn {
             width: 100%; padding: 15px; border-radius: 15px; border: none;
             font-size: 1rem; font-weight: 600; cursor: pointer; display: flex;
             align-items: center; justify-content: center; gap: 10px;
-            color: white; transition: 0.4s; margin-bottom: 10px;
+            color: white; transition: 0.4s; text-decoration: none;
         }
 
-        .btn-activate { background: none; border: 1px solid var(--soft-pink); color: var(--gold-glow); }
+        .btn-live { background: linear-gradient(45deg, var(--soft-pink), var(--plum-deep)); }
+        .btn-interviews { background: #6a1b9a; border: 1px solid var(--gold-glow); }
         .btn-private { background: #5a1217; }
         .btn-photos { background: #3e0e11; }
 
+        /* تعديلات الشبكة (5 أعمدة) */
         .unified-grid { 
             display: grid; 
-            grid-template-columns: repeat(5, 1fr); 
+            grid-template-columns: repeat(5, 1fr) !important; 
             gap: 6px; margin-top: 15px; display: none; 
         }
 
         .grid-item { 
             aspect-ratio: 1/1; background: #000; border-radius: 6px; 
             position: relative; overflow: hidden; border: 1px solid rgba(216, 27, 96, 0.2); 
-            cursor: pointer;
         }
 
-        /* حاوية التغبيش تشمل كل شيء بالداخل */
+        /* التغبيش يشمل الإيموجي والصورة */
         .blur-wrapper {
             width: 100%; height: 100%; filter: blur(10px); transition: 0.5s; position: relative;
         }
@@ -67,32 +94,46 @@
         .item-lock { 
             position: absolute; inset: 0; display: flex; justify-content: center; 
             align-items: center; color: var(--gold-glow); font-size: 0.8rem; 
-            background: rgba(0,0,0,0.3); z-index: 3;
+            background: rgba(0,0,0,0.2); z-index: 3;
         }
 
+        /* القوائم الجانبية (Modal) */
         .modal {
             display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92);
             backdrop-filter: blur(10px); z-index: 3000; justify-content: center; align-items: center;
         }
         .modal-content {
             background: #2a0a0d; padding: 25px; border-radius: 25px; border: 1px solid var(--soft-pink);
-            text-align: center; width: 85%;
+            text-align: center; width: 90%; max-width: 360px;
         }
 
-        .social-icons { display: flex; justify-content: center; margin-top: 30px; }
-        .social-icons a { color: var(--gold-glow); font-size: 2rem; }
+        .price-table { width: 100%; border-collapse: collapse; margin-top: 15px; color: white; }
+        .price-table td { border: 1px solid rgba(216, 27, 96, 0.3); padding: 10px 5px; font-size: 0.8rem; }
+        .price-table tr td:last-child { color: var(--gold-glow); font-weight: bold; }
+
+        .social-icons { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
+        .social-icons a { color: var(--gold-glow); font-size: 2rem; cursor: pointer; }
     </style>
 </head>
 <body>
+
+<div id="cursor-glow"></div>
 
 <div class="container">
     <div class="header">
         <img src="back.png" class="profile-img" onerror="this.src='https://via.placeholder.com/110'">
         <h1>هبة وأحمد من غزة</h1>
-        <button class="main-btn btn-activate" onclick="openModal('subModal')">تفعيل الكود الخاص</button>
+        <button class="btn-sub-code" onclick="openModal('subModal')"> <i class="fas fa-magic"></i> رمز الاشتراك </button>
+        <button class="btn-price-list" onclick="openModal('priceModal')"> <i class="fas fa-gem"></i> قائمة الاشتراكات </button>
+
+        <div class="bio-container">
+            <p style="font-size: 0.9rem; margin: 0;">نحن زوجين من غزة، نشارككم لحظاتنا ويومياتنا بكل حب.. 🇵🇸</p>
+        </div>
     </div>
 
     <div class="btn-container">
+        <button class="main-btn btn-live" onclick="alert('سنكون متواجدين قريباً')"> <i class="fas fa-video"></i> دخول البث المباشر (LIVE) </button>
+        <button class="main-btn btn-interviews" onclick="openModal('interviewModal')"> <i class="fas fa-microphone-lines"></i> خاص للمقابلات </button>
         <button class="main-btn btn-private" onclick="toggleSection('videoGrid')"> <i class="fas fa-film"></i> فيديوهاتي الخاصة (10) </button>
         <button class="main-btn btn-photos" onclick="toggleSection('photoGrid')"> <i class="fas fa-image"></i> صوري الخاصة </button>
     </div>
@@ -105,19 +146,47 @@
     </div>
 </div>
 
-<div id="subModal" class="modal">
-    <div class="modal-content">
-        <h3 style="color:var(--gold-glow);">أدخل رمز الاشتراك</h3>
-        <input type="text" id="codeInput" style="width:90%; padding:12px; margin-bottom:15px; border-radius:10px; border:1px solid var(--soft-pink); background:black; color:white; text-align:center;">
-        <button class="main-btn btn-private" style="width:100%" onclick="checkCode()">تفعيل الآن</button>
-        <button class="main-btn" style="background:none; font-size:0.8rem;" onclick="closeModal('subModal')">إلغاء</button>
+<!-- Modal Price -->
+<div id="priceModal" class="modal" onclick="closeModal('priceModal')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <h3 style="color:var(--gold-glow);">قائمة الاشتراكات</h3>
+        <table class="price-table">
+            <tr><td>الموقع كامل</td><td>300$</td></tr>
+            <tr><td>اللايف فقط</td><td>300$</td></tr>
+            <tr><td>الفيديوهات فقط</td><td>250$</td></tr>
+            <tr><td>الصور فقط</td><td>200$</td></tr>
+        </table>
+        <button class="main-btn btn-live" onclick="closeModal('priceModal')" style="width:100%; margin-top:15px; border:none; color:white; border-radius:10px;">إغلاق</button>
+    </div>
+</div>
+
+<!-- Modal Subscription -->
+<div id="subModal" class="modal" onclick="closeModal('subModal')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <h3 style="color:var(--gold-glow);">تفعيل الاشتراك</h3>
+        <input type="text" id="codeInput" style="width:90%; padding:12px; margin-bottom:15px; border-radius:10px; border:1px solid var(--soft-pink); background:rgba(0,0,0,0.3); color:white; text-align:center;" placeholder="اكتب الرمز هنا...">
+        <button class="main-btn btn-live" onclick="checkCode()" style="width:100%; padding:12px; border:none; color:white; font-weight:bold; border-radius:10px;">تفعيل</button>
+    </div>
+</div>
+
+<!-- Modal Interviews -->
+<div id="interviewModal" class="modal" onclick="closeModal('interviewModal')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <h3 style="color:var(--gold-glow);">خاص للمقابلات</h3>
+        <p style="font-size:0.8rem;">تواصل معنا لتحديد موعد مقابلة خاصة</p>
+        <button class="main-btn btn-live" onclick="window.open('https://x.com/Heba_Ahmaed96')" style="width:100%; padding:10px; border:none; color:white; border-radius:10px;">ارسل رسالة الآن</button>
     </div>
 </div>
 
 <script>
+    const glow = document.getElementById('cursor-glow');
+    document.addEventListener('mousemove', (e) => {
+        glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px';
+    });
+
     let isActivated = false;
 
-    // البيانات والروابط التي طلبتها
+    // الروابط الـ 10 التي أرسلتها
     const videoData = [
         { url: "https://x.com/saraadelok/status/2041442640441266570", hasFace: true },
         { url: "https://x.com/saraadelok/status/2041440733677150380", hasFace: true },
@@ -131,29 +200,43 @@
         { url: "https://x.com/almunaqaba100K/status/2037848827856581045", hasFace: false }
     ];
 
+    const photoData = [
+        "https://i.postimg.cc/z3v7gxbq/HFSD8Kn-W8AAv-NTJ.jpg",
+        "https://i.postimg.cc/bdrgtmDn/HFSi-WFp-Xs-AAKg-Gm.jpg"
+    ];
+
     function initGrids() {
         const vGrid = document.getElementById('videoGrid');
-        videoData.forEach((item) => {
+        videoData.forEach(item => {
             const div = document.createElement('div');
             div.className = 'grid-item';
-            const emoji = item.hasFace ? '<div class="face-emoji">🙈</div>' : '';
-            
+            const emojiHTML = item.hasFace ? '<div class="face-emoji">🙈</div>' : '';
             div.innerHTML = `
                 <div class="blur-wrapper">
-                    ${emoji}
-                    <img src="https://via.placeholder.com/150/1a080a/f4cf8d?text=Video">
+                    ${emojiHTML}
+                    <img src="https://via.placeholder.com/150/1a080a/f4cf8d?text=Locked">
                 </div>
                 <div class="item-lock"><i class="fas fa-play"></i></div>
             `;
-            
             div.onclick = () => {
-                if (!isActivated) {
-                    alert("يرجى تفعيل الكود لمشاهدة الفيديو.");
-                } else {
-                    window.open(item.url, '_blank');
-                }
+                if (isActivated) window.open(item.url, '_blank');
+                else alert("فعل الكود لمشاهدة الفيديو");
             };
             vGrid.appendChild(div);
+        });
+
+        const pGrid = document.getElementById('photoGrid');
+        photoData.forEach(link => {
+            const div = document.createElement('div');
+            div.className = 'grid-item';
+            div.innerHTML = `
+                <div class="blur-wrapper">
+                    <img src="${link}">
+                </div>
+                <div class="item-lock"><i class="fas fa-lock"></i></div>
+            `;
+            div.onclick = () => alert("الصور متاحة للمشتركين فقط");
+            pGrid.appendChild(div);
         });
     }
 
@@ -175,13 +258,11 @@
     function checkCode() {
         if (document.getElementById('codeInput').value === "GAZA2026") {
             isActivated = true;
-            alert("تم التفعيل بنجاح! يمكنك الآن فتح الفيديوهات.");
+            alert("تم التفعيل!");
             document.querySelectorAll('.blur-wrapper').forEach(el => el.style.filter = 'none');
             document.querySelectorAll('.item-lock, .face-emoji').forEach(el => el.style.display = 'none');
             closeModal('subModal');
-        } else {
-            alert("الرمز غير صحيح.");
-        }
+        } else { alert("رمز خطأ"); }
     }
 
     initGrids();
