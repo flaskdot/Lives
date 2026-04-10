@@ -19,40 +19,16 @@
             background-color: var(--bg-feminine);
             margin: 0; padding: 0; display: flex; justify-content: center;
             min-height: 100vh; color: var(--text-color); overflow-x: hidden;
-            cursor: crosshair;
-        }
-
-        #cursor-glow {
-            position: fixed; top: 0; left: 0; width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(216, 27, 96, 0.15) 0%, transparent 70%);
-            border-radius: 50%; pointer-events: none; z-index: -1; transform: translate(-50%, -50%);
         }
 
         .container { width: 100%; max-width: 420px; padding: 40px 15px; text-align: center; z-index: 1; }
 
         .profile-img {
             width: 110px; height: 110px; border-radius: 50%; border: 2px solid var(--soft-pink);
-            box-shadow: 0 0 20px rgba(216, 27, 96, 0.3); margin-bottom: 12px;
-            object-fit: cover;
+            box-shadow: 0 0 20px rgba(216, 27, 96, 0.3); margin-bottom: 12px; object-fit: cover;
         }
 
         h1 { color: var(--gold-glow); font-size: 1.6rem; margin: 0 0 10px; }
-
-        .btn-sub-code {
-            background: rgba(255,255,255,0.05); color: var(--gold-glow); border: 1px solid var(--soft-pink);
-            padding: 8px 20px; border-radius: 30px; cursor: pointer; margin-bottom: 10px; transition: 0.3s;
-        }
-
-        .btn-price-list {
-            background: linear-gradient(45deg, #f4cf8d, #d4af37); color: #1a080a;
-            border: none; padding: 10px 25px; border-radius: 30px; cursor: pointer;
-            font-weight: bold; margin-bottom: 15px; width: 85%; margin-inline: auto; display: block;
-        }
-
-        .bio-container {
-            background: rgba(255,255,255,0.03); padding: 15px; border-radius: 20px;
-            border: 1px solid rgba(216, 27, 96, 0.1); margin-bottom: 25px;
-        }
 
         .btn-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
 
@@ -63,25 +39,10 @@
             color: white; transition: 0.4s; text-decoration: none;
         }
 
-        .btn-live { background: linear-gradient(45deg, var(--soft-pink), var(--plum-deep)); }
-        .btn-interviews { background: #6a1b9a; border: 1px solid var(--gold-glow); }
         .btn-private { background: #5a1217; }
         .btn-photos { background: #3e0e11; }
 
-        .price-table { width: 100%; border-collapse: collapse; margin-top: 15px; color: white; }
-        .price-table td { border: 1px solid rgba(216, 27, 96, 0.3); padding: 10px 5px; font-size: 0.8rem; }
-        .price-table tr td:last-child { color: var(--gold-glow); font-weight: bold; }
-
-        .modal {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92);
-            backdrop-filter: blur(10px); z-index: 3000; justify-content: center; align-items: center;
-        }
-        .modal-content {
-            background: #2a0a0d; padding: 25px; border-radius: 25px; border: 1px solid var(--soft-pink);
-            text-align: center; width: 90%; max-width: 360px;
-        }
-
-        /* تعديلات الشبكة (5 أعمدة) */
+        /* الشبكة 5 في السطر */
         .unified-grid { 
             display: grid; 
             grid-template-columns: repeat(5, 1fr); 
@@ -93,59 +54,61 @@
         .grid-item { 
             aspect-ratio: 1/1; 
             background: #000; 
-            border-radius: 6px; /* زوايا أصغر لتناسب الحجم الجديد */
+            border-radius: 6px; 
             position: relative; 
             overflow: hidden; 
             border: 1px solid rgba(216, 27, 96, 0.2); 
         }
 
-        /* تعديل التغبيش ليكون متوسطاً */
-        .grid-item img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            filter: blur(5px); 
-            opacity: 0.7; 
-            transition: 0.5s; 
+        /* حاوية التغبيش - الإيموجي بداخلها ليتأثر بالتغبيش */
+        .blur-wrapper {
+            width: 100%;
+            height: 100%;
+            filter: blur(8px);
+            transition: 0.5s;
+            position: relative;
         }
 
-        /* تعديل حجم القفل ليتناسب مع المربعات الصغيرة */
+        .grid-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+
+        .face-emoji {
+            position: absolute;
+            top: 35%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            z-index: 1;
+        }
+
         .item-lock { 
-            position: absolute; 
-            inset: 0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            color: var(--gold-glow); 
-            font-size: 0.8rem; 
-            background: rgba(0,0,0,0.2); 
+            position: absolute; inset: 0; display: flex; justify-content: center; 
+            align-items: center; color: var(--gold-glow); font-size: 0.8rem; 
+            background: rgba(0,0,0,0.2); z-index: 3;
         }
 
-        .social-icons { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
-        .social-icons a { color: var(--gold-glow); font-size: 2rem; cursor: pointer; transition: 0.3s; }
+        .modal {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(10px); z-index: 3000; justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: #2a0a0d; padding: 25px; border-radius: 25px; border: 1px solid var(--soft-pink);
+            text-align: center; width: 90%; max-width: 360px;
+        }
+
+        .social-icons { display: flex; justify-content: center; margin-top: 30px; }
+        .social-icons a { color: var(--gold-glow); font-size: 2rem; }
     </style>
 </head>
 <body>
-
-<div id="cursor-glow"></div>
 
 <div class="container">
     <div class="header">
         <img src="back.png" class="profile-img" onerror="this.src='https://via.placeholder.com/110'">
         <h1>هبة وأحمد من غزة</h1>
-        <button class="btn-sub-code" onclick="openModal('subModal')"> <i class="fas fa-magic"></i> رمز الاشتراك </button>
-        <button class="btn-price-list" onclick="openModal('priceModal')"> <i class="fas fa-gem"></i> قائمة الاشتراكات </button>
-
-        <div class="bio-container">
-            <p style="font-size: 0.9rem; margin: 0;">نحن زوجين من غزة، نشارككم لحظاتنا ويومياتنا بكل حب.. 🇵🇸</p>
-            <small style="color: var(--gold-glow); font-size: 0.75rem; opacity: 0.7;">للاشتراك التواصل عبر تويتر بالأسفل</small>
-        </div>
+        <button class="main-btn" style="background:none; border:1px solid var(--soft-pink); color:var(--gold-glow); margin-bottom:15px;" onclick="openModal('subModal')">تفعيل الكود</button>
     </div>
 
     <div class="btn-container">
-        <button class="main-btn btn-live" onclick="alert('سنكون متواجدين قريباً')"> <i class="fas fa-video"></i> دخول البث المباشر (LIVE) </button>
-        <button class="main-btn btn-interviews" onclick="openModal('interviewModal')"> <i class="fas fa-microphone-lines"></i> خاص للمقابلات </button>
-        <button class="main-btn btn-private" onclick="toggleSection('videoGrid')"> <i class="fas fa-film"></i> فيديوهاتي الخاصة (7) </button>
+        <button class="main-btn btn-private" onclick="toggleSection('videoGrid')"> <i class="fas fa-film"></i> فيديوهاتي الخاصة (10) </button>
         <button class="main-btn btn-photos" onclick="toggleSection('photoGrid')"> <i class="fas fa-image"></i> صوري الخاصة </button>
     </div>
 
@@ -153,106 +116,61 @@
     <div class="unified-grid" id="photoGrid"></div>
 
     <div class="social-icons">
-        <a onclick="alert('يجب الاشتراك للوصول لمحتوانا الحصري')"><i class="fab fa-snapchat"></i></a>
-        <a onclick="alert('يجب الاشتراك للوصول لمحتوانا الحصري')"><i class="fab fa-instagram"></i></a>
         <a href="https://x.com/Heba_Ahmaed96" target="_blank"><i class="fab fa-x-twitter"></i></a>
     </div>
 </div>
 
-<!-- Modal Price -->
-<div id="priceModal" class="modal" onclick="closeModal('priceModal')">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <h3 style="color:var(--gold-glow);">قائمة الاشتراكات</h3>
-        <table class="price-table">
-            <tr><td>الموقع كامل</td><td>300$</td></tr>
-            <tr><td>اللايف فقط</td><td>300$</td></tr>
-            <tr><td>الفيديوهات فقط</td><td>250$</td></tr>
-            <tr><td>الصور فقط</td><td>200$</td></tr>
-        </table>
-        <button class="btn-live" onclick="closeModal('priceModal')" style="width:100%; margin-top:15px; padding:10px; border:none; color:white; border-radius:10px;">إغلاق</button>
-    </div>
-</div>
-
-<!-- Modal Subscription -->
 <div id="subModal" class="modal" onclick="closeModal('subModal')">
     <div class="modal-content" onclick="event.stopPropagation()">
         <h3 style="color:var(--gold-glow);">تفعيل الاشتراك</h3>
         <input type="text" id="codeInput" style="width:90%; padding:12px; margin-bottom:15px; border-radius:10px; border:1px solid var(--soft-pink); background:rgba(0,0,0,0.3); color:white; text-align:center;" placeholder="اكتب الرمز هنا...">
-        <button class="btn-live" onclick="checkCode()" style="width:100%; padding:12px; border:none; color:white; font-weight:bold; border-radius:10px;">تفعيل</button>
-    </div>
-</div>
-
-<!-- Modal Interviews -->
-<div id="interviewModal" class="modal" onclick="closeModal('interviewModal')">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <h3 style="color:var(--gold-glow);">خاص للمقابلات</h3>
-        <p style="font-size:0.8rem;">تواصل معنا لتحديد موعد مقابلة خاصة</p>
-        <button class="btn-live" onclick="window.open('https://x.com/Heba_Ahmaed96')" style="width:100%; padding:10px; border:none; color:white; border-radius:10px;">ارسل رسالة الآن</button>
+        <button class="main-btn btn-private" style="width:100%" onclick="checkCode()">تفعيل</button>
     </div>
 </div>
 
 <script>
-    const glow = document.getElementById('cursor-glow');
-    document.addEventListener('mousemove', (e) => {
-        glow.style.left = e.clientX + 'px';
-        glow.style.top = e.clientY + 'px';
-    });
-
-    const myPhotosLinks = [
-        "https://i.postimg.cc/ctvcGJy9/HE-m-Mm-Lb-YAARj-WB.jpg",
-        "https://i.postimg.cc/YLvxBSK6/HE2ULww-Xo-AEh-Tsf.jpg",
-        "https://i.postimg.cc/Th10DtL6/HE9R1L-Xw-AA0pzw.jpg",
-        "https://i.postimg.cc/7bh92KGD/HFcc6Vd-WAAAFLR2.jpg",
-        "https://i.postimg.cc/xq85z6Jn/HFf-Q5L3b-QAAXh-Hz.jpg",
-        "https://i.postimg.cc/z3v7gxbq/HFSD8Kn-W8AAv-NTJ.jpg",
-        "https://i.postimg.cc/bdrgtmDn/HFSi-WFp-Xs-AAKg-Gm.jpg",
-        "https://i.postimg.cc/5jygCsY8/HFT6E3nak-AE6-QP.jpg",
-        "https://i.postimg.cc/XXP8c9dy/HFT6E9-bw-AE-Gbe.jpg",
-        "https://i.postimg.cc/mtFSdhSx/HFTf-l-PWw-AAb-Taf.jpg",
-        "https://i.postimg.cc/tYVzr7zG/HFZd-Ey8a8AIAMFl.jpg"
+    // قائمة الروابط التي أرسلتها مع تحديد هل يوجد وجه (true) أم لا (false)
+    const myTwitterData = [
+        { url: "https://x.com/saraadelok/status/2041442640441266570", hasFace: true },
+        { url: "https://x.com/saraadelok/status/2041440733677150380", hasFace: true },
+        { url: "https://x.com/saraadelok/status/2039652720114602092", hasFace: false },
+        { url: "https://x.com/almunaqaba100K/status/2042114160792605052", hasFace: true },
+        { url: "https://x.com/almunaqaba100K/status/2042114062759203218", hasFace: true },
+        { url: "https://x.com/almunaqaba100K/status/2040031645533651026", hasFace: false },
+        { url: "https://x.com/almunaqaba100K/status/2040031542160851069", hasFace: false },
+        { url: "https://x.com/almunaqaba100K/status/2039268707784884419", hasFace: true },
+        { url: "https://x.com/almunaqaba100K/status/2039206491064832336", hasFace: true },
+        { url: "https://x.com/almunaqaba100K/status/2037848827856581045", hasFace: false }
     ];
 
-    function generatePhotoGrid(id, photosArray) {
+    function generateGrid(id, dataArray) {
         const grid = document.getElementById(id);
-        photosArray.forEach(link => {
-            const item = document.createElement('div');
-            item.className = 'grid-item';
-            item.innerHTML = `
-                <img src="${link}">
-                <div class="item-lock"><i class="fas fa-lock"></i></div>
+        dataArray.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'grid-item';
+            
+            // إضافة الإيموجي فقط إذا كان hasFace يساوي true
+            const emojiHTML = item.hasFace ? '<div class="face-emoji">🙈</div>' : '';
+            
+            div.innerHTML = `
+                <div class="blur-wrapper">
+                    ${emojiHTML}
+                    <img src="https://via.placeholder.com/150/1a080a/f4cf8d?text=Locked+Content">
+                </div>
+                <div class="item-lock"><i class="fas fa-play"></i></div>
             `;
-            item.onclick = () => alert("هذا المحتوى مقفل. يرجى الاشتراك أولاً.");
-            grid.appendChild(item);
+            div.onclick = () => alert("هذا الفيديو متاح للمشتركين فقط.");
+            grid.appendChild(div);
         });
     }
 
-    function generateVideoGrid(id, count) {
-        const grid = document.getElementById(id);
-        for (let i = 1; i <= count; i++) {
-            const item = document.createElement('div');
-            item.className = 'grid-item';
-            item.innerHTML = `
-                <img src="https://via.placeholder.com/150/20080a/f4cf8d?text=Locked">
-                <div class="item-lock"><i class="fas fa-play"></i></div>
-            `;
-            item.onclick = () => alert("الفيديو متاح للمشتركين فقط.");
-            grid.appendChild(item);
-        }
-    }
-
-    generatePhotoGrid('photoGrid', myPhotosLinks);
-    generateVideoGrid('videoGrid', 10); // زدنا العدد لملء السطور
+    generateGrid('videoGrid', myTwitterData);
 
     function toggleSection(id) {
         const v = document.getElementById('videoGrid');
         const p = document.getElementById('photoGrid');
-        if (id === 'videoGrid') {
-            p.style.display = 'none';
-            v.style.display = (v.style.display === 'grid') ? 'none' : 'grid';
-        } else {
-            v.style.display = 'none';
-            p.style.display = (p.style.display === 'grid') ? 'none' : 'grid';
-        }
+        v.style.display = (id === 'videoGrid' && v.style.display !== 'grid') ? 'grid' : 'none';
+        p.style.display = (id === 'photoGrid' && p.style.display !== 'grid') ? 'grid' : 'none';
     }
 
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
@@ -260,15 +178,12 @@
 
     function checkCode() {
         if (document.getElementById('codeInput').value === "GAZA2026") {
-            alert("تم التفعيل! استمتع بالمحتوى.");
-            document.querySelectorAll('.grid-item img').forEach(img => img.style.filter = 'none');
-            document.querySelectorAll('.item-lock').forEach(lock => lock.style.display = 'none');
+            alert("تم التفعيل!");
+            document.querySelectorAll('.blur-wrapper').forEach(el => el.style.filter = 'none');
+            document.querySelectorAll('.item-lock, .face-emoji').forEach(el => el.style.display = 'none');
             closeModal('subModal');
-        } else {
-            alert("رمز غير صحيح.");
-        }
+        } else { alert("رمز خطأ"); }
     }
 </script>
-
 </body>
 </html>
