@@ -51,6 +51,29 @@
         .btn-purple { background: #6a1b9a; border: 1px solid var(--gold); }
         .btn-dark { background: #3a0a0e; border: 1px solid rgba(255,255,255,0.1); }
 
+        /* شبكة الصور والفيديوهات المقفولة */
+        .content-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 8px; margin-top: 25px;
+        }
+
+        .grid-item {
+            aspect-ratio: 1/1; background: #2a0a0d; border-radius: 10px;
+            position: relative; overflow: hidden; border: 1px solid rgba(216, 27, 96, 0.2);
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer;
+        }
+
+        .grid-item img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: blur(8px); opacity: 0.5;
+        }
+
+        .lock-icon {
+            position: absolute; color: var(--gold); font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
         /* نافذة العداد التنازلي */
         #timerOverlay {
             display: none; position: fixed; inset: 0;
@@ -82,11 +105,8 @@
             border: 1px solid var(--main-pink); background: #000; color: #fff; text-align: center;
         }
 
-        .price-table { width: 100%; border-collapse: collapse; margin-top: 15px; color: white; }
-        .price-table td { border: 1px solid rgba(216, 27, 96, 0.3); padding: 10px 5px; font-size: 0.9rem; }
-
         .footer-social { margin-top: 30px; display: flex; justify-content: center; gap: 25px; }
-        .footer-social a { color: var(--gold); font-size: 1.7rem; }
+        .footer-social a { color: var(--gold); font-size: 1.7rem; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -107,10 +127,19 @@
         <button class="btn btn-dark" onclick="handleAccess()"> <i class="fas fa-image"></i> صوري الخاصة </button>
     </div>
 
+    <div class="content-grid">
+        <div class="grid-item" onclick="handleAccess()"><img src="https://via.placeholder.com/150"><i class="fas fa-lock lock-icon"></i></div>
+        <div class="grid-item" onclick="handleAccess()"><img src="https://via.placeholder.com/150"><i class="fas fa-play lock-icon"></i></div>
+        <div class="grid-item" onclick="handleAccess()"><img src="https://via.placeholder.com/150"><i class="fas fa-lock lock-icon"></i></div>
+        <div class="grid-item" onclick="handleAccess()"><img src="https://via.placeholder.com/150"><i class="fas fa-lock lock-icon"></i></div>
+        <div class="grid-item" onclick="handleAccess()"><img src="https://via.placeholder.com/150"><i class="fas fa-play lock-icon"></i></div>
+        <div class="grid-item" onclick="handleAccess()"><img src="https://via.placeholder.com/150"><i class="fas fa-lock lock-icon"></i></div>
+    </div>
+
     <div class="footer-social">
         <a href="https://x.com/Heba_Ahmaed96" target="_blank"><i class="fab fa-x-twitter"></i></a>
-        <a href="#"><i class="fab fa-telegram"></i></a>
-        <a href="#"><i class="fab fa-snapchat"></i></a>
+        <a onclick="alert('يجب الاشتراك لعرض الحسابات الشخصية')"><i class="fab fa-telegram"></i></a>
+        <a onclick="alert('يجب الاشتراك لعرض الحسابات الشخصية')"><i class="fab fa-snapchat"></i></a>
     </div>
 </div>
 
@@ -127,8 +156,8 @@
     <div class="modal-content">
         <h3 style="color:var(--gold);">تفعيل الاشتراك</h3>
         <input type="text" id="userInput" placeholder="أدخل الرمز هنا">
-        <button class="btn btn-primary" style="width:100%; margin-bottom:10px;" onclick="checkCode()">تفعيل</button>
-        <button class="btn btn-outline" style="width:100%;" onclick="closeModal('codeModal')">إلغاء</button>
+        <button class="btn btn-primary" style="width:100%;" onclick="checkCode()">تفعيل</button>
+        <button class="btn btn-outline" style="width:100%; margin-top:10px;" onclick="closeModal('codeModal')">إلغاء</button>
     </div>
 </div>
 
@@ -145,21 +174,8 @@
     </div>
 </div>
 
-<div id="interviewModal" class="modal">
-    <div class="modal-content">
-        <h3 style="color:var(--gold);">خاص للمقابلات</h3>
-        <p style="font-size:0.9rem;">يرجى التواصل معنا عبر حساباتنا الرسمية لتحديد موعد مقابلة.</p>
-        <button class="btn btn-purple" style="width:100%; margin-top:15px;" onclick="window.open('https://x.com/Heba_Ahmaed96', '_blank')">تواصل عبر X</button>
-        <button class="btn btn-dark" style="width:100%; margin-top:10px;" onclick="closeModal('interviewModal')">إغلاق</button>
-    </div>
-</div>
-
 <script>
-    const secretCodes = [
-        "Hhaboush158947ahmed", "Hhaboush160947ahmed", "Hhaboush158997ahmed",
-        "Hhaboush388947ahmed", "Hhaboush165847ahmed", "Hhaboush968000ahmed"
-    ];
-
+    const secretCodes = ["Hhaboush158947ahmed", "Hhaboush160947ahmed", "Hhaboush158997ahmed", "Hhaboush388947ahmed", "Hhaboush165847ahmed", "Hhaboush968000ahmed"];
     let countdownInterval;
 
     function checkCode() {
@@ -170,26 +186,19 @@
             localStorage.setItem("is_active", "true");
             closeModal('codeModal');
             showTimerOverlay("اهلا وسهلا بك في موقعنا الشخصي هبة واحمد تم تفعيل كود اشتراك شهري يرجى حفظ رمز الدخول لتتمكن من عرض هذا المحتوى. سيكون المحتوى الخاص بنا متاح بعد 24 ساعة.");
-        } else {
-            alert("عذراً، الرمز غير صحيح!");
-        }
+        } else { alert("عذراً، الرمز غير صحيح!"); }
     }
 
     function handleAccess() {
         const active = localStorage.getItem("is_active");
         const exp = localStorage.getItem("exp_time");
-        const now = new Date().getTime();
-
-        if (!active) {
-            openModal('codeModal');
-        } else {
-            if (now >= exp) {
+        if (!active) { openModal('codeModal'); }
+        else {
+            if (new Date().getTime() >= exp) {
                 localStorage.clear();
                 alert("يرجى ادخال كود الاشتراك الصحيح");
                 openModal('codeModal');
-            } else {
-                showTimerOverlay("سيكون المحتوى الخاص بنا متاح بعد 24 ساعة.");
-            }
+            } else { showTimerOverlay("سيكون المحتوى الخاص بنا متاح بعد 24 ساعة."); }
         }
     }
 
@@ -202,16 +211,11 @@
     function runClock() {
         if (countdownInterval) clearInterval(countdownInterval);
         countdownInterval = setInterval(() => {
-            const exp = localStorage.getItem("exp_time");
-            const diff = exp - new Date().getTime();
-            if (diff <= 0) {
-                clearInterval(countdownInterval);
-                document.getElementById('timerClock').innerText = "00:00:00";
-                return;
-            }
-            const h = Math.floor(diff / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
+            const diff = localStorage.getItem("exp_time") - new Date().getTime();
+            if (diff <= 0) { clearInterval(countdownInterval); document.getElementById('timerClock').innerText = "00:00:00"; return; }
+            const h = Math.floor(diff / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
             document.getElementById('timerClock').innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
         }, 1000);
     }
@@ -219,9 +223,7 @@
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     function closeOverlay() { document.getElementById('timerOverlay').style.display = 'none'; }
-
     window.onload = () => { if(localStorage.getItem("exp_time")) runClock(); };
 </script>
-
 </body>
 </html>
