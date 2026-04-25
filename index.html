@@ -51,7 +51,7 @@
         .btn-purple { background: #6a1b9a; border: 1px solid var(--gold); }
         .btn-dark { background: #3a0a0e; border: 1px solid rgba(255,255,255,0.1); }
 
-        /* شبكة الصور والفيديوهات المقفولة */
+        /* شبكة المحتوى (الصور والفيديوهات المقفولة) */
         .content-grid {
             display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 8px; margin-top: 25px;
@@ -66,15 +66,15 @@
 
         .grid-item img {
             width: 100%; height: 100%; object-fit: cover;
-            filter: blur(8px); opacity: 0.5;
+            filter: blur(12px); opacity: 0.6; /* تغبيش قوي للمحتوى الرسمي */
         }
 
         .lock-icon {
-            position: absolute; color: var(--gold); font-size: 1.2rem;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+            position: absolute; color: var(--gold); font-size: 1.3rem;
+            text-shadow: 0 0 10px rgba(0,0,0,0.9);
         }
 
-        /* نافذة العداد التنازلي */
+        /* نافذة العداد ورسائل Teaser */
         #timerOverlay {
             display: none; position: fixed; inset: 0;
             background: rgba(0,0,0,0.95); z-index: 9999;
@@ -105,6 +105,9 @@
             border: 1px solid var(--main-pink); background: #000; color: #fff; text-align: center;
         }
 
+        .price-table { width: 100%; border-collapse: collapse; margin-top: 15px; color: white; }
+        .price-table td { border: 1px solid rgba(216, 27, 96, 0.3); padding: 10px 5px; font-size: 0.9rem; }
+
         .footer-social { margin-top: 30px; display: flex; justify-content: center; gap: 25px; }
         .footer-social a { color: var(--gold); font-size: 1.7rem; cursor: pointer; }
     </style>
@@ -128,12 +131,13 @@
     </div>
 
     <div class="content-grid">
-        <div class="grid-item" onclick="handleAccess()"><img src="https://via.placeholder.com/150"><i class="fas fa-lock lock-icon"></i></div>
-        <div class="grid-item" onclick="handleAccess()"><img src="https://via.placeholder.com/150"><i class="fas fa-play lock-icon"></i></div>
-        <div class="grid-item" onclick="handleAccess()"><img src="https://via.placeholder.com/150"><i class="fas fa-lock lock-icon"></i></div>
-        <div class="grid-item" onclick="handleAccess()"><img src="https://via.placeholder.com/150"><i class="fas fa-lock lock-icon"></i></div>
-        <div class="grid-item" onclick="handleAccess()"><img src="https://via.placeholder.com/150"><i class="fas fa-play lock-icon"></i></div>
-        <div class="grid-item" onclick="handleAccess()"><img src="https://via.placeholder.com/150"><i class="fas fa-lock lock-icon"></i></div>
+        <div class="grid-item" onclick="handleAccess()"><img src="https://i.postimg.cc/ctvcGJy9/HE-m-Mm-Lb-YAARj-WB.jpg"><i class="fas fa-play lock-icon"></i></div>
+        <div class="grid-item" onclick="handleAccess()"><img src="https://i.postimg.cc/YLvxBSK6/HE2ULww-Xo-AEh-Tsf.jpg"><i class="fas fa-lock lock-icon"></i></div>
+        <div class="grid-item" onclick="handleAccess()"><img src="https://i.postimg.cc/Th10DtL6/HE9R1L-Xw-AA0pzw.jpg"><i class="fas fa-lock lock-icon"></i></div>
+        <div class="grid-item" onclick="handleAccess()"><img src="https://i.postimg.cc/7bh92KGD/HFcc6Vd-WAAAFLR2.jpg"><i class="fas fa-play lock-icon"></i></div>
+        <div class="grid-item" onclick="handleAccess()"><img src="https://i.postimg.cc/xq85z6Jn/HFf-Q5L3b-QAAXh-Hz.jpg"><i class="fas fa-lock lock-icon"></i></div>
+        <div class="grid-item" onclick="handleAccess()"><img src="https://i.postimg.cc/z3v7gxbq/HFSD8Kn-W8AAv-NTJ.jpg"><i class="fas fa-lock lock-icon"></i></div>
+        <div class="grid-item" onclick="handleAccess()"><img src="https://i.postimg.cc/bdrgtmDn/HFSi-WFp-Xs-AAKg-Gm.jpg"><i class="fas fa-play lock-icon"></i></div>
     </div>
 
     <div class="footer-social">
@@ -171,6 +175,15 @@
             <tr><td>الصور فقط</td><td>200$</td></tr>
         </table>
         <button class="btn btn-primary" style="width:100%; margin-top:15px;" onclick="closeModal('priceModal')">إغلاق</button>
+    </div>
+</div>
+
+<div id="interviewModal" class="modal">
+    <div class="modal-content">
+        <h3 style="color:var(--gold);">خاص للمقابلات</h3>
+        <p style="font-size:0.9rem;">يرجى التواصل معنا عبر حساباتنا الرسمية لتحديد موعد مقابلة.</p>
+        <button class="btn btn-purple" style="width:100%; margin-top:15px;" onclick="window.open('https://x.com/Heba_Ahmaed96', '_blank')">تواصل عبر X</button>
+        <button class="btn btn-dark" style="width:100%; margin-top:10px;" onclick="closeModal('interviewModal')">إغلاق</button>
     </div>
 </div>
 
