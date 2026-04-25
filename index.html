@@ -22,7 +22,6 @@
             min-height: 100vh;
         }
 
-        /* حاوية الموقع */
         .app-container {
             width: 100%; max-width: 420px;
             padding: 30px 15px; text-align: center;
@@ -37,21 +36,22 @@
 
         h1 { color: var(--gold); font-size: 1.5rem; margin: 10px 0; }
 
-        /* الأزرار */
-        .btn-list { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
+        .btn-list { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
 
         .btn {
-            padding: 16px; border-radius: 15px; border: none;
+            padding: 14px; border-radius: 15px; border: none;
             font-size: 1rem; font-weight: bold; cursor: pointer;
             display: flex; align-items: center; justify-content: center; gap: 10px;
             transition: 0.3s; text-decoration: none; color: white;
         }
 
         .btn-outline { background: transparent; border: 1px solid var(--main-pink); color: var(--gold); }
+        .btn-gold { background: linear-gradient(45deg, #f4cf8d, #d4af37); color: #1a080a; }
         .btn-primary { background: linear-gradient(45deg, var(--main-pink), #4a148c); }
+        .btn-purple { background: #6a1b9a; border: 1px solid var(--gold); }
         .btn-dark { background: #3a0a0e; border: 1px solid rgba(255,255,255,0.1); }
 
-        /* نافذة العداد التنازلي (الخديعة) */
+        /* نافذة العداد التنازلي */
         #timerOverlay {
             display: none; position: fixed; inset: 0;
             background: rgba(0,0,0,0.95); z-index: 9999;
@@ -65,7 +65,7 @@
 
         .timer-text { font-size: 2.8rem; color: var(--gold); font-weight: bold; margin: 20px 0; font-family: monospace; }
 
-        /* المودال (نافذة إدخال الكود) */
+        /* المودالات */
         .modal {
             display: none; position: fixed; inset: 0;
             background: rgba(0,0,0,0.9); z-index: 9000;
@@ -82,7 +82,10 @@
             border: 1px solid var(--main-pink); background: #000; color: #fff; text-align: center;
         }
 
-        .footer-social { margin-top: 40px; display: flex; justify-content: center; gap: 25px; }
+        .price-table { width: 100%; border-collapse: collapse; margin-top: 15px; color: white; }
+        .price-table td { border: 1px solid rgba(216, 27, 96, 0.3); padding: 10px 5px; font-size: 0.9rem; }
+
+        .footer-social { margin-top: 30px; display: flex; justify-content: center; gap: 25px; }
         .footer-social a { color: var(--gold); font-size: 1.7rem; }
     </style>
 </head>
@@ -90,20 +93,22 @@
 
 <div class="app-container">
     <div class="profile-section">
-        <img src="back.png" alt="Profile" onerror="this.src='https://via.placeholder.com/115'">
+        <img src="back.png" onerror="this.src='https://via.placeholder.com/115'">
         <h1>هبة وأحمد من غزة</h1>
         <p style="font-size: 0.85rem; opacity: 0.8;">نشارككم أجمل لحظاتنا.. تابعونا 🇵🇸</p>
     </div>
 
     <div class="btn-list">
-        <button class="btn btn-outline" onclick="openModal()"> <i class="fas fa-key"></i> رمز الاشتراك </button>
-        <button class="btn btn-primary" onclick="handleAccess()"> <i class="fas fa-video"></i> دخول البث المباشر (LIVE) </button>
-        <button class="btn btn-dark" onclick="handleAccess()"> <i class="fas fa-film"></i> فيديوهاتي الخاصة </button>
+        <button class="btn btn-outline" onclick="openModal('codeModal')"> <i class="fas fa-key"></i> رمز الاشتراك </button>
+        <button class="btn btn-gold" onclick="openModal('priceModal')"> <i class="fas fa-gem"></i> قائمة الاشتراكات </button>
+        <button class="btn btn-primary" onclick="alert('سنكون متواجدين قريباً في البث المباشر')"> <i class="fas fa-video"></i> دخول البث المباشر (LIVE) </button>
+        <button class="btn btn-purple" onclick="openModal('interviewModal')"> <i class="fas fa-microphone-lines"></i> خاص للمقابلات </button>
+        <button class="btn btn-dark" onclick="handleAccess()"> <i class="fas fa-film"></i> فيديوهاتي الخاصة (10) </button>
         <button class="btn btn-dark" onclick="handleAccess()"> <i class="fas fa-image"></i> صوري الخاصة </button>
     </div>
 
     <div class="footer-social">
-        <a href="#"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://x.com/Heba_Ahmaed96" target="_blank"><i class="fab fa-x-twitter"></i></a>
         <a href="#"><i class="fab fa-telegram"></i></a>
         <a href="#"><i class="fab fa-snapchat"></i></a>
     </div>
@@ -111,7 +116,7 @@
 
 <div id="timerOverlay">
     <div class="timer-card">
-        <h3 style="color:var(--gold); margin:0;">أهلاً بك يا غالي</h3>
+        <h3 style="color:var(--gold);">أهلاً بك يا غالي</h3>
         <p id="timerMessage" style="font-size:0.9rem; line-height:1.6; margin:15px 0;"></p>
         <div id="timerClock" class="timer-text">24:00:00</div>
         <button class="btn btn-primary" style="width:100%;" onclick="closeOverlay()">موافق</button>
@@ -123,7 +128,29 @@
         <h3 style="color:var(--gold);">تفعيل الاشتراك</h3>
         <input type="text" id="userInput" placeholder="أدخل الرمز هنا">
         <button class="btn btn-primary" style="width:100%; margin-bottom:10px;" onclick="checkCode()">تفعيل</button>
-        <button class="btn btn-outline" style="width:100%; padding:10px;" onclick="closeModal()">إلغاء</button>
+        <button class="btn btn-outline" style="width:100%;" onclick="closeModal('codeModal')">إلغاء</button>
+    </div>
+</div>
+
+<div id="priceModal" class="modal">
+    <div class="modal-content">
+        <h3 style="color:var(--gold);">قائمة الاشتراكات</h3>
+        <table class="price-table">
+            <tr><td>الموقع كامل</td><td>300$</td></tr>
+            <tr><td>اللايف فقط</td><td>300$</td></tr>
+            <tr><td>الفيديوهات فقط</td><td>250$</td></tr>
+            <tr><td>الصور فقط</td><td>200$</td></tr>
+        </table>
+        <button class="btn btn-primary" style="width:100%; margin-top:15px;" onclick="closeModal('priceModal')">إغلاق</button>
+    </div>
+</div>
+
+<div id="interviewModal" class="modal">
+    <div class="modal-content">
+        <h3 style="color:var(--gold);">خاص للمقابلات</h3>
+        <p style="font-size:0.9rem;">يرجى التواصل معنا عبر حساباتنا الرسمية لتحديد موعد مقابلة.</p>
+        <button class="btn btn-purple" style="width:100%; margin-top:15px;" onclick="window.open('https://x.com/Heba_Ahmaed96', '_blank')">تواصل عبر X</button>
+        <button class="btn btn-dark" style="width:100%; margin-top:10px;" onclick="closeModal('interviewModal')">إغلاق</button>
     </div>
 </div>
 
@@ -138,12 +165,10 @@
     function checkCode() {
         const val = document.getElementById('userInput').value.trim();
         if (secretCodes.includes(val)) {
-            // حفظ وقت البداية لـ 24 ساعة
             const end = new Date().getTime() + (24 * 60 * 60 * 1000);
             localStorage.setItem("exp_time", end);
             localStorage.setItem("is_active", "true");
-            
-            closeModal();
+            closeModal('codeModal');
             showTimerOverlay("اهلا وسهلا بك في موقعنا الشخصي هبة واحمد تم تفعيل كود اشتراك شهري يرجى حفظ رمز الدخول لتتمكن من عرض هذا المحتوى. سيكون المحتوى الخاص بنا متاح بعد 24 ساعة.");
         } else {
             alert("عذراً، الرمز غير صحيح!");
@@ -156,13 +181,12 @@
         const now = new Date().getTime();
 
         if (!active) {
-            openModal();
+            openModal('codeModal');
         } else {
             if (now >= exp) {
-                // انتهى الوقت -> اطلب كود جديد
                 localStorage.clear();
                 alert("يرجى ادخال كود الاشتراك الصحيح");
-                openModal();
+                openModal('codeModal');
             } else {
                 showTimerOverlay("سيكون المحتوى الخاص بنا متاح بعد 24 ساعة.");
             }
@@ -177,32 +201,25 @@
 
     function runClock() {
         if (countdownInterval) clearInterval(countdownInterval);
-        
         countdownInterval = setInterval(() => {
             const exp = localStorage.getItem("exp_time");
-            const now = new Date().getTime();
-            const diff = exp - now;
-
+            const diff = exp - new Date().getTime();
             if (diff <= 0) {
                 clearInterval(countdownInterval);
                 document.getElementById('timerClock').innerText = "00:00:00";
                 return;
             }
-
             const h = Math.floor(diff / (1000 * 60 * 60));
             const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('timerClock').innerText = 
-                `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+            document.getElementById('timerClock').innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
         }, 1000);
     }
 
-    function openModal() { document.getElementById('codeModal').style.display = 'flex'; }
-    function closeModal() { document.getElementById('codeModal').style.display = 'none'; }
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     function closeOverlay() { document.getElementById('timerOverlay').style.display = 'none'; }
 
-    // فحص الحالة عند فتح الصفحة
     window.onload = () => { if(localStorage.getItem("exp_time")) runClock(); };
 </script>
 
