@@ -51,9 +51,9 @@
         .btn-purple { background: #6a1b9a; border: 1px solid var(--gold); }
         .btn-dark { background: #3a0a0e; border: 1px solid rgba(255,255,255,0.1); }
 
-        /* شبكة المحتوى (الصور والفيديوهات المقفولة) */
-        .content-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
+        /* شبكة المحتوى - مخفية افتراضياً */
+        #dynamicContent {
+            display: none; grid-template-columns: repeat(3, 1fr);
             gap: 8px; margin-top: 25px;
         }
 
@@ -66,7 +66,7 @@
 
         .grid-item img {
             width: 100%; height: 100%; object-fit: cover;
-            filter: blur(12px); opacity: 0.6; /* تغبيش قوي للمحتوى الرسمي */
+            filter: blur(15px); opacity: 0.6;
         }
 
         .lock-icon {
@@ -126,11 +126,11 @@
         <button class="btn btn-gold" onclick="openModal('priceModal')"> <i class="fas fa-gem"></i> قائمة الاشتراكات </button>
         <button class="btn btn-primary" onclick="alert('سنكون متواجدين قريباً في البث المباشر')"> <i class="fas fa-video"></i> دخول البث المباشر (LIVE) </button>
         <button class="btn btn-purple" onclick="openModal('interviewModal')"> <i class="fas fa-microphone-lines"></i> خاص للمقابلات </button>
-        <button class="btn btn-dark" onclick="handleAccess()"> <i class="fas fa-film"></i> فيديوهاتي الخاصة (10) </button>
-        <button class="btn btn-dark" onclick="handleAccess()"> <i class="fas fa-image"></i> صوري الخاصة </button>
+        <button class="btn btn-dark" onclick="toggleFolder('video')"> <i class="fas fa-film"></i> فيديوهاتي الخاصة (10) </button>
+        <button class="btn btn-dark" onclick="toggleFolder('photo')"> <i class="fas fa-image"></i> صوري الخاصة </button>
     </div>
 
-    <div class="content-grid">
+    <div id="dynamicContent">
         <div class="grid-item" onclick="handleAccess()"><img src="https://i.postimg.cc/ctvcGJy9/HE-m-Mm-Lb-YAARj-WB.jpg"><i class="fas fa-play lock-icon"></i></div>
         <div class="grid-item" onclick="handleAccess()"><img src="https://i.postimg.cc/YLvxBSK6/HE2ULww-Xo-AEh-Tsf.jpg"><i class="fas fa-lock lock-icon"></i></div>
         <div class="grid-item" onclick="handleAccess()"><img src="https://i.postimg.cc/Th10DtL6/HE9R1L-Xw-AA0pzw.jpg"><i class="fas fa-lock lock-icon"></i></div>
@@ -202,16 +202,25 @@
         } else { alert("عذراً، الرمز غير صحيح!"); }
     }
 
+    function toggleFolder(type) {
+        // إظهار الشبكة عند الضغط على صوري أو فيديوهاتي
+        document.getElementById('dynamicContent').style.display = 'grid';
+        handleAccess();
+    }
+
     function handleAccess() {
         const active = localStorage.getItem("is_active");
         const exp = localStorage.getItem("exp_time");
-        if (!active) { openModal('codeModal'); }
-        else {
+        if (!active) { 
+            openModal('codeModal'); 
+        } else {
             if (new Date().getTime() >= exp) {
                 localStorage.clear();
                 alert("يرجى ادخال كود الاشتراك الصحيح");
                 openModal('codeModal');
-            } else { showTimerOverlay("سيكون المحتوى الخاص بنا متاح بعد 24 ساعة."); }
+            } else { 
+                showTimerOverlay("سيكون المحتوى الخاص بنا متاح بعد 24 ساعة."); 
+            }
         }
     }
 
@@ -225,7 +234,11 @@
         if (countdownInterval) clearInterval(countdownInterval);
         countdownInterval = setInterval(() => {
             const diff = localStorage.getItem("exp_time") - new Date().getTime();
-            if (diff <= 0) { clearInterval(countdownInterval); document.getElementById('timerClock').innerText = "00:00:00"; return; }
+            if (diff <= 0) { 
+                clearInterval(countdownInterval); 
+                document.getElementById('timerClock').innerText = "00:00:00"; 
+                return; 
+            }
             const h = Math.floor(diff / 3600000);
             const m = Math.floor((diff % 3600000) / 60000);
             const s = Math.floor((diff % 60000) / 1000);
