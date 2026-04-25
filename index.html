@@ -7,151 +7,185 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --bg-feminine: #1a080a;
-            --soft-pink: #d81b60;
-            --gold-glow: #f4cf8d;
-            --text-color: #fce4ec;
+            --bg-color: #1a080a;
+            --main-pink: #d81b60;
+            --gold: #f4cf8d;
+            --text-pink: #fce4ec;
         }
 
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: var(--bg-feminine);
-            margin: 0; padding: 0; display: flex; justify-content: center;
-            min-height: 100vh; color: var(--text-color); overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-pink);
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh;
         }
 
-        .container { width: 100%; max-width: 420px; padding: 40px 15px; text-align: center; }
+        /* حاوية الموقع */
+        .app-container {
+            width: 100%; max-width: 420px;
+            padding: 30px 15px; text-align: center;
+        }
 
-        /* نافذة العداد ورسالة الانتظار */
+        .profile-section img {
+            width: 115px; height: 115px; border-radius: 50%;
+            border: 3px solid var(--main-pink);
+            box-shadow: 0 0 15px rgba(216, 27, 96, 0.4);
+            margin-bottom: 15px; object-fit: cover;
+        }
+
+        h1 { color: var(--gold); font-size: 1.5rem; margin: 10px 0; }
+
+        /* الأزرار */
+        .btn-list { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
+
+        .btn {
+            padding: 16px; border-radius: 15px; border: none;
+            font-size: 1rem; font-weight: bold; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            transition: 0.3s; text-decoration: none; color: white;
+        }
+
+        .btn-outline { background: transparent; border: 1px solid var(--main-pink); color: var(--gold); }
+        .btn-primary { background: linear-gradient(45deg, var(--main-pink), #4a148c); }
+        .btn-dark { background: #3a0a0e; border: 1px solid rgba(255,255,255,0.1); }
+
+        /* نافذة العداد التنازلي (الخديعة) */
         #timerOverlay {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9);
-            backdrop-filter: blur(15px); z-index: 9999; justify-content: center; align-items: center;
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.95); z-index: 9999;
+            justify-content: center; align-items: center; padding: 20px;
         }
 
-        .timer-box {
-            background: #2a0a0d; padding: 30px; border-radius: 25px; border: 2px solid var(--soft-pink);
-            width: 85%; max-width: 350px; text-align: center;
+        .timer-card {
+            background: #2a0a0d; padding: 30px; border-radius: 25px;
+            border: 2px solid var(--main-pink); text-align: center; width: 100%; max-width: 340px;
         }
 
-        .timer-digits {
-            font-size: 3rem; color: var(--gold-glow); font-weight: bold; margin: 20px 0;
-            font-family: monospace;
+        .timer-text { font-size: 2.8rem; color: var(--gold); font-weight: bold; margin: 20px 0; font-family: monospace; }
+
+        /* المودال (نافذة إدخال الكود) */
+        .modal {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.9); z-index: 9000;
+            justify-content: center; align-items: center;
         }
 
-        .main-btn {
-            width: 100%; padding: 15px; border-radius: 15px; border: none;
-            font-size: 1rem; font-weight: 600; cursor: pointer; color: white; margin-bottom: 10px;
+        .modal-content {
+            background: #2a0a0d; padding: 25px; border-radius: 20px;
+            border: 1px solid var(--main-pink); width: 85%; max-width: 320px; text-align: center;
         }
 
-        .btn-private { background: #5a1217; }
-        .btn-photos { background: #3e0e11; }
-        .btn-code { background: transparent; border: 1px solid var(--soft-pink); color: var(--gold-glow); }
+        input {
+            width: 90%; padding: 12px; margin: 15px 0; border-radius: 10px;
+            border: 1px solid var(--main-pink); background: #000; color: #fff; text-align: center;
+        }
 
-        .unified-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-top: 15px; display:none; }
-        .grid-item { aspect-ratio: 1/1; background: #000; border: 1px solid #333; border-radius: 5px; overflow: hidden; filter: blur(10px); opacity: 0.5; }
-
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 8000; justify-content: center; align-items: center; }
-        .modal-content { background: #2a0a0d; padding: 25px; border-radius: 20px; border: 1px solid var(--soft-pink); width: 85%; }
-        
-        input { width: 90%; padding: 12px; margin-bottom: 15px; border-radius: 10px; border: 1px solid var(--soft-pink); background: #000; color: #fff; text-align: center; }
+        .footer-social { margin-top: 40px; display: flex; justify-content: center; gap: 25px; }
+        .footer-social a { color: var(--gold); font-size: 1.7rem; }
     </style>
 </head>
 <body>
 
+<div class="app-container">
+    <div class="profile-section">
+        <img src="back.png" alt="Profile" onerror="this.src='https://via.placeholder.com/115'">
+        <h1>هبة وأحمد من غزة</h1>
+        <p style="font-size: 0.85rem; opacity: 0.8;">نشارككم أجمل لحظاتنا.. تابعونا 🇵🇸</p>
+    </div>
+
+    <div class="btn-list">
+        <button class="btn btn-outline" onclick="openModal()"> <i class="fas fa-key"></i> رمز الاشتراك </button>
+        <button class="btn btn-primary" onclick="handleAccess()"> <i class="fas fa-video"></i> دخول البث المباشر (LIVE) </button>
+        <button class="btn btn-dark" onclick="handleAccess()"> <i class="fas fa-film"></i> فيديوهاتي الخاصة </button>
+        <button class="btn btn-dark" onclick="handleAccess()"> <i class="fas fa-image"></i> صوري الخاصة </button>
+    </div>
+
+    <div class="footer-social">
+        <a href="#"><i class="fab fa-x-twitter"></i></a>
+        <a href="#"><i class="fab fa-telegram"></i></a>
+        <a href="#"><i class="fab fa-snapchat"></i></a>
+    </div>
+</div>
+
 <div id="timerOverlay">
-    <div class="timer-box">
-        <h3 id="overlayHeader" style="color:var(--gold-glow);">أهلاً بك يا غالي</h3>
-        <p id="overlayMessage" style="font-size:0.95rem; line-height:1.6;"></p>
-        <div id="timerDisplay" class="timer-digits">24:00:00</div>
-        <button class="main-btn btn-private" onclick="closeOverlay()">موافق</button>
+    <div class="timer-card">
+        <h3 style="color:var(--gold); margin:0;">أهلاً بك يا غالي</h3>
+        <p id="timerMessage" style="font-size:0.9rem; line-height:1.6; margin:15px 0;"></p>
+        <div id="timerClock" class="timer-text">24:00:00</div>
+        <button class="btn btn-primary" style="width:100%;" onclick="closeOverlay()">موافق</button>
     </div>
 </div>
 
-<div class="container">
-    <img src="back.png" style="width:110px; border-radius:50%; border:2px solid var(--soft-pink);" onerror="this.src='https://via.placeholder.com/110'">
-    <h1 style="color:var(--gold-glow);">هبة وأحمد من غزة</h1>
-    
-    <button class="main-btn btn-code" onclick="openModal('subModal')">رمز الاشتراك</button>
-
-    <div style="margin-top:20px;">
-        <button class="main-btn btn-private" onclick="handleSectionClick()">فيديوهاتي الخاصة</button>
-        <button class="main-btn btn-photos" onclick="handleSectionClick()">صوري الخاصة</button>
-    </div>
-
-    <div id="dummyGrid" class="unified-grid">
-        <div class="grid-item"></div><div class="grid-item"></div><div class="grid-item"></div><div class="grid-item"></div><div class="grid-item"></div>
-    </div>
-</div>
-
-<div id="subModal" class="modal">
+<div id="codeModal" class="modal">
     <div class="modal-content">
-        <h3 style="color:var(--gold-glow);">تفعيل الاشتراك</h3>
-        <input type="text" id="codeInput" placeholder="اكتب الرمز هنا...">
-        <button class="main-btn btn-private" onclick="processActivation()">تفعيل الآن</button>
-        <button class="main-btn btn-code" onclick="closeModal('subModal')">إلغاء</button>
+        <h3 style="color:var(--gold);">تفعيل الاشتراك</h3>
+        <input type="text" id="userInput" placeholder="أدخل الرمز هنا">
+        <button class="btn btn-primary" style="width:100%; margin-bottom:10px;" onclick="checkCode()">تفعيل</button>
+        <button class="btn btn-outline" style="width:100%; padding:10px;" onclick="closeModal()">إلغاء</button>
     </div>
 </div>
 
 <script>
-    const validCodes = [
+    const secretCodes = [
         "Hhaboush158947ahmed", "Hhaboush160947ahmed", "Hhaboush158997ahmed",
         "Hhaboush388947ahmed", "Hhaboush165847ahmed", "Hhaboush968000ahmed"
     ];
 
-    let timerUpdate;
+    let countdownInterval;
 
-    function processActivation() {
-        const input = document.getElementById('codeInput').value.trim();
-        if (validCodes.includes(input)) {
-            // تحديد وقت الانتهاء: الآن + 24 ساعة
-            const targetTime = new Date().getTime() + (24 * 60 * 60 * 1000);
-            localStorage.setItem("sub_target", targetTime);
-            localStorage.setItem("sub_status", "waiting");
+    function checkCode() {
+        const val = document.getElementById('userInput').value.trim();
+        if (secretCodes.includes(val)) {
+            // حفظ وقت البداية لـ 24 ساعة
+            const end = new Date().getTime() + (24 * 60 * 60 * 1000);
+            localStorage.setItem("exp_time", end);
+            localStorage.setItem("is_active", "true");
             
-            closeModal('subModal');
-            showTeaser("اهلا وسهلا بك في موقعنا الشخصي هبة واحمد تم تفعيل كود اشتراك شهري يرجى حفظ رمز الدخول لتتمكن من عرض هذا المحتوى. سيكون المحتوى الخاص بنا متاح بعد 24 ساعة.");
+            closeModal();
+            showTimerOverlay("اهلا وسهلا بك في موقعنا الشخصي هبة واحمد تم تفعيل كود اشتراك شهري يرجى حفظ رمز الدخول لتتمكن من عرض هذا المحتوى. سيكون المحتوى الخاص بنا متاح بعد 24 ساعة.");
         } else {
-            alert("رمز التفعيل غير صحيح!");
+            alert("عذراً، الرمز غير صحيح!");
         }
     }
 
-    function handleSectionClick() {
-        const status = localStorage.getItem("sub_status");
-        const target = localStorage.getItem("sub_target");
+    function handleAccess() {
+        const active = localStorage.getItem("is_active");
+        const exp = localStorage.getItem("exp_time");
         const now = new Date().getTime();
 
-        if (!status) {
-            openModal('subModal');
-        } else if (status === "waiting") {
-            if (now >= target) {
-                // انتهت الـ 24 ساعة -> اطلب كود جديد
-                localStorage.clear(); // تصفير كل شيء لإجباره على البدء من جديد
+        if (!active) {
+            openModal();
+        } else {
+            if (now >= exp) {
+                // انتهى الوقت -> اطلب كود جديد
+                localStorage.clear();
                 alert("يرجى ادخال كود الاشتراك الصحيح");
-                openModal('subModal');
+                openModal();
             } else {
-                // لا يزال العداد يعمل
-                showTeaser("سيكون المحتوى الخاص بنا متاح بعد 24 ساعة.");
+                showTimerOverlay("سيكون المحتوى الخاص بنا متاح بعد 24 ساعة.");
             }
         }
     }
 
-    function showTeaser(msg) {
-        document.getElementById('overlayMessage').innerText = msg;
+    function showTimerOverlay(msg) {
+        document.getElementById('timerMessage').innerText = msg;
         document.getElementById('timerOverlay').style.display = 'flex';
-        updateTimer();
+        runClock();
     }
 
-    function updateTimer() {
-        if (timerUpdate) clearInterval(timerUpdate);
+    function runClock() {
+        if (countdownInterval) clearInterval(countdownInterval);
         
-        timerUpdate = setInterval(() => {
-            const target = localStorage.getItem("sub_target");
+        countdownInterval = setInterval(() => {
+            const exp = localStorage.getItem("exp_time");
             const now = new Date().getTime();
-            const diff = target - now;
+            const diff = exp - now;
 
             if (diff <= 0) {
-                clearInterval(timerUpdate);
-                document.getElementById('timerDisplay').innerText = "00:00:00";
+                clearInterval(countdownInterval);
+                document.getElementById('timerClock').innerText = "00:00:00";
                 return;
             }
 
@@ -159,17 +193,18 @@
             const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((diff % (1000 * 60)) / 1000);
             
-            document.getElementById('timerDisplay').innerText = 
-                `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+            document.getElementById('timerClock').innerText = 
+                `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
         }, 1000);
     }
 
+    function openModal() { document.getElementById('codeModal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('codeModal').style.display = 'none'; }
     function closeOverlay() { document.getElementById('timerOverlay').style.display = 'none'; }
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    // عند تحميل الصفحة، إذا كان هناك عداد نشط، ابدأ بتحديثه في الخلفية
-    window.onload = () => { if(localStorage.getItem("sub_target")) updateTimer(); };
+    // فحص الحالة عند فتح الصفحة
+    window.onload = () => { if(localStorage.getItem("exp_time")) runClock(); };
 </script>
+
 </body>
 </html>
